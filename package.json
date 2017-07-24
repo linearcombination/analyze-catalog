@@ -1,0 +1,22 @@
+{
+  "name": "analyze-catalog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-import": "^2.7.0"
+  },
+  "dependencies": {
+    "express": "^4.15.3",
+    "lodash": "^4.17.4",
+    "request": "^2.81.0"
+  }
+}
