@@ -20,6 +20,30 @@ const revertMapToList = (map, fn) => Object.keys(map)
   .sort()
   .map(entry => fn(map, entry));
 
+/**
+ *
+ * Convert ...
+ *
+ * {
+ *   aa: { value: 1 },
+ *   ab: { value: 2 }
+ * }
+ *
+ * to ...
+ *
+ * [
+ *   { keyName: 'aa', value: 1 },
+ *   { keyName: 'ab', value: 0 }
+ * ]
+ *
+ */
+const mapToList = function(keyName) {
+  const map = this;
+  return Object.keys(map).sort().map(key => Object.assign({ [keyName]: key }, map[key]));
+};
+
+Object.prototype.mapToList = mapToList;
+
 module.exports = {
   getFileExtension,
   pickShorterSlug,

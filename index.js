@@ -9,7 +9,6 @@ const {
   getFileExtension,
   pickShorterSlug,
   concatReduceToMap,
-  revertMapToList,
 } = require('./helpers');
 
 const app = express();
@@ -22,23 +21,12 @@ let PROCESSED_OLD_CAT;
 let PROCESSED_NEW_CAT;
 let PROCESSED_DATA;
 
-const getLinksFromContent = content => (
-  _.compact(
-    Object.keys(content)
-      .map(key => (
-        key === 'pdf' || key === 'src'
-        ? {
-          format: getFileExtension(content[key]),
-          url: content[key],
-        }
-        : undefined
-      )),
-  )
-);
-
 const processNewCat = d => (
+  // Only process the languges attribute, ignore the catalogs
   d.languages
-    .sort((lang1, lang2) => lang1.identifier > lang2.identifier ? 1 : -1)
+    // Order by ascending language code
+    .sort((l1, l2) => (l1.identifier > l2.identifier ? 1 : -1))
+    // Cherry-pick the attributes that we care about
     .map(lang => ({
       code: lang.identifier,
       direction: lang.direction,
@@ -51,7 +39,7 @@ const processNewCat = d => (
           format: format.format,
           url: format.url,
         })),
-        content: resource.projects && resource.projects.map(proj => ({
+        contents: resource.projects && resource.projects.map(proj => ({
           title: proj.title,
           slug: proj.identifier,
           links: proj.formats && proj.formats.map(format => ({
@@ -63,82 +51,137 @@ const processNewCat = d => (
     }))
 );
 
-const processOldCat = d => (
-  _.union(d.cat[0].langs, d.cat[1].langs)
+const processOldCat = (d) => {
+  const bible = d.cat[0].langs.slice();
+  const obs = d.cat[1].langs.slice();
+
+  return bible
+    // Combine the two lists
+    .concat(obs)
+    // Cherry-pick the attributes that we care about
     .map(lang => ({
       code: lang.lc,
       resources: lang.vers.map(ver => ({
         name: ver.name,
         slug: ver.slug,
-        content: ver.toc.map(content => ({
+        contents: ver.toc.map(content => ({
           title: content.title || ver.name,
           desc: content.desc,
           slug: content.slug || ver.slug,
-          links: getLinksFromContent(content),
+          // Instead of having { pdf: '', src: '' }, we want the links this way
+          // {
+          //   links: [
+          //     { format: 'pdf', url: '' },
+          //     { format: 'usfm', url: '' }
+          //   ]
+          // }
+          links: _.compact(Object.keys(content).map(key => (
+            key === 'pdf' || key === 'src'
+            ? {
+              format: getFileExtension(content[key]),
+              url: content[key],
+            }
+            : undefined
+          ))),
         })),
       })),
     }))
+    // Combine resources if two languages have the same language code
+    // TODO: Optimize by using object/map/dict instead of findIndex()
     .reduce((l, lang) => {
-      const list = l.slice();
-      const i = _.findIndex(list, { code: lang.code });
+      const newList = l.slice();
+      const i = _.findIndex(newList, { code: lang.code });
+
       if (i === -1) {
-        list.push(lang);
+        newList.push(lang);
       } else {
-        list[i].resources = list[i].resources.concat(lang.resources);
+        newList[i].resources = newList[i].resources.concat(lang.resources);
       }
-      return list;
-    }, [])
+
+      return newList;
+    }, []);
+};
+
+const combineContents = (c1, c2) => (
+  concatReduceToMap(c1, c2, (map, content) => {
+    map[content.title] = map[content.title]
+      ? {
+        desc: map[content.title].desc || content.desc,
+        slug: pickShorterSlug(map[content.title].slug, content.slug),
+        links: map[content.title].links
+          ? map[content.title].links.concat(content.links)
+          : content.links,
+      }
+      : content;
+    return map;
+  })
+  .mapToList('title')
 );
 
-const combineContents = (contents1, contents2) => {
-  const combinedContentsMap = concatReduceToMap(
-    contents1,
-    contents2,
-    (map, content) => {
-      map[content.title] = map[content.title]
-        ? {
-          desc: map[content.title].desc || content.desc,
-          slug: pickShorterSlug(map[content.title].slug, content.slug),
-          links: map[content.title].links
-            ? map[content.title].links.concat(content.links)
-            : content.links,
-        }
-        : content;
-      return map;
-    },
-  );
+const combineResources = (r1, r2) => {
+  const mergedResourcesMap = concatReduceToMap(r1, r2, (map, resource) => {
+    const name = resource.name;
 
-  return revertMapToList(
-    combinedContentsMap,
-    (map, title) => Object.assign({ title }, map[title]),
-  );
+    map[name] = map[name]
+      ? {
+        desc: map[name].desc || resource.desc,
+        subj: map[name].subj || resource.subj,
+        slug: pickShorterSlug(map[name].slug, resource.slug),
+        links: map[name].links
+          ? _.compact(map[name].links.concat(resource.links))
+          : resource.links,
+        contents: combineContents(map[name].contents, resource.contents),
+      }
+      : resource;
+
+    return map;
+  });
+
+  /*
+  *
+  * If content title is the same as the resource title, relocate the links one
+  * level up to be at the resource. The main targets are OBS resources, which,
+  * at this point, has unnecessary nesting like such:
+  *
+  *   resources: [
+  *     {
+  *       title: "Open Bible Stories",
+  *       contents: [
+  *         {
+  *           title: "Open Bible Stories",
+  *           links: [ ... ]
+  *         }
+  *       ]
+  *     }
+  *   ]
+  *
+  * What we want is:
+  *
+  *   resources: [
+  *     {
+  *       title: "Open Bible Stories",
+  *       links: [ ... ]
+  *     }
+  *   ]
+  *
+  */
+  Object.keys(mergedResourcesMap).forEach((key) => {
+    mergedResourcesMap[key].contents = mergedResourcesMap[key].contents
+      .filter((content) => {
+        if (content.title === key) {
+          mergedResourcesMap[key].links =
+            (mergedResourcesMap[key].links || []).concat(content.links);
+          return false;
+        }
+        return true;
+      });
+  });
+
+  return mergedResourcesMap.mapToList('name');
 };
 
-const combineResources = (resources1, resources2) => {
-  const combinedResourcesMap = concatReduceToMap(
-    resources1,
-    resources2,
-    (map, res) => {
-      map[res.name] = map[res.name]
-        ? {
-          desc: map[res.name].desc || res.desc,
-          subj: map[res.name].subj || res.subj,
-          slug: pickShorterSlug(map[res.name].slug, res.slug),
-          content: combineContents(map[res.name].content, res.content),
-        }
-        : res;
-      return map;
-    },
-  );
-
-  return revertMapToList(
-    combinedResourcesMap,
-    (map, name) => Object.assign({ name }, map[name]),
-  );
-};
-
-const combineBothCats = (cat1, cat2) => {
-  const combinedLanguagesMap = concatReduceToMap(cat1, cat2, (map, lang) => {
+const combineBothCats = (cat1, cat2) => (
+  concatReduceToMap(cat1, cat2, (map, lang) => {
     map[lang.code] = map[lang.code]
       ? {
         direction: map[lang.code].direction || lang.direction,
@@ -146,13 +189,9 @@ const combineBothCats = (cat1, cat2) => {
       }
       : lang;
     return map;
-  });
-
-  return revertMapToList(
-    combinedLanguagesMap,
-    (map, code) => Object.assign({ code }, combinedLanguagesMap[code]),
-  );
-};
+  })
+  .mapToList('code')
+);
 
 app.get('/old', (req, res) => {
   res.json(OLD_CAT);
