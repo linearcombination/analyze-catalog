@@ -15,11 +15,13 @@ const app = express();
 
 const oldCatUrl = 'https://api.unfoldingword.org/uw/txt/2/catalog.json';
 const newCatUrl = 'https://api.door43.org/v3/catalog.json';
-let OLD_CAT;
-let NEW_CAT;
-let PROCESSED_OLD_CAT;
-let PROCESSED_NEW_CAT;
-let PROCESSED_DATA;
+let langnamesUrl;
+let oldCatData;
+let newCatData;
+let langMap;
+let processedOldCatData;
+let processedNewCatData;
+let processedBothCatData;
 
 const processNewCat = d => (
   // Only process the languges attribute, ignore the catalogs
@@ -36,14 +38,14 @@ const processNewCat = d => (
         subj: resource.subject,
         slug: resource.identifier,
         links: resource.formats && resource.formats.map(format => ({
-          format: format.format,
+          format: getFileExtension(format.url),
           url: format.url,
         })),
         contents: resource.projects && resource.projects.map(proj => ({
           title: proj.title,
           slug: proj.identifier,
           links: proj.formats && proj.formats.map(format => ({
-            format: format.format,
+            format: getFileExtension(format.url),
             url: format.url,
           })),
         })),
@@ -75,6 +77,7 @@ const processOldCat = (d) => {
           //     { format: 'usfm', url: '' }
           //   ]
           // }
+          // TODO: Possible to do this by .filter() that doesn't return a falsy
           links: _.compact(Object.keys(content).map(key => (
             key === 'pdf' || key === 'src'
             ? {
@@ -102,15 +105,28 @@ const processOldCat = (d) => {
     }, []);
 };
 
+const processLangnames = d => (
+  d.reduce((m, lang) => {
+    const map = m;
+    map[lang.lc] = {
+      name: lang.ln,
+      englishName: lang.ang,
+      direction: lang.ld,
+    };
+    return map;
+  }, {})
+);
+
 const combineContents = (c1, c2) => (
   concatReduceToMap(c1, c2, (map, content) => {
     map[content.title] = map[content.title]
       ? {
         desc: map[content.title].desc || content.desc,
         slug: pickShorterSlug(map[content.title].slug, content.slug),
-        links: map[content.title].links
+        links: filterBadLinks(map[content.title].links
           ? map[content.title].links.concat(content.links)
-          : content.links,
+          : content.links
+        ),
       }
       : content;
     return map;
@@ -127,9 +143,10 @@ const combineResources = (r1, r2) => {
         desc: map[name].desc || resource.desc,
         subj: map[name].subj || resource.subj,
         slug: pickShorterSlug(map[name].slug, resource.slug),
-        links: map[name].links
+        links: filterBadLinks(map[name].links
           ? _.compact(map[name].links.concat(resource.links))
-          : resource.links,
+          : resource.links
+        ),
         contents: combineContents(map[name].contents, resource.contents),
       }
       : resource;
@@ -181,57 +198,98 @@ const combineResources = (r1, r2) => {
 };
 
 const combineBothCats = (cat1, cat2) => (
-  concatReduceToMap(cat1, cat2, (map, lang) => {
-    map[lang.code] = map[lang.code]
-      ? {
-        direction: map[lang.code].direction || lang.direction,
-        resources: combineResources(map[lang.code].resources, lang.resources),
-      }
-      : lang;
+  concatReduceToMap(cat1, cat2, (m, lang) => {
+    const map = m;
+    const code = lang.code;
+
+    map[code] = !map[code]
+    ? lang
+    : {
+      direction: map[code].direction || lang.direction,
+      resources: combineResources(map[code].resources, lang.resources),
+    };
+
     return map;
   })
   .mapToList('code')
 );
 
+const getLangInfo = (data, map) => (
+  data.map((l) => {
+    const lang = l;
+    lang.name = map[lang.code].name;
+    lang.englishName = map[lang.code].englishName;
+    return lang;
+  })
+);
+
+const filterBadLinks = (links) => {
+  return links;
+}
+
+/**
+ *
+ * ROUTES
+ *
+ */
+
 app.get('/old', (req, res) => {
-  res.json(OLD_CAT);
+  res.json(oldCatData);
 });
 
 app.get('/old/res', (req, res) => {
-  res.json(PROCESSED_OLD_CAT);
+  res.json(processedOldCatData);
 });
 
 app.get('/new', (req, res) => {
-  res.json(NEW_CAT);
+  res.json(newCatData);
 });
 
 app.get('/new/res', (req, res) => {
-  res.json(PROCESSED_NEW_CAT);
+  res.json(processedNewCatData);
 });
 
 app.get('/both/res', (req, res) => {
-  res.json(PROCESSED_DATA);
+  res.json(processedBothCatData);
 });
 
 app.get('/both/res/json', (req, res) => {
-  const data = combineBothCats(PROCESSED_OLD_CAT, PROCESSED_NEW_CAT);
-  fs.writeFile('./data.json', JSON.stringify(data, null, 2), (err) => {
+  fs.writeFile('./data.json', JSON.stringify(processedBothCatData), (err) => {
     if (err) {
       return console.log(err);
     }
-    res.download('./data.json');
+    return res.download('./data.json');
   });
 });
 
+// app.get('/both/res/links', (req, res) => {
+//   processedBothCatData.
+// });
+
+/**
+ *
+ * MAIN EXECUTION
+ *
+ */
+
 request(oldCatUrl, (err1, resp1, body1) => {
-  OLD_CAT = JSON.parse(body1);
-  PROCESSED_OLD_CAT = processOldCat(OLD_CAT);
+  oldCatData = JSON.parse(body1);
+  processedOldCatData = processOldCat(oldCatData);
+
   request(newCatUrl, (err2, resp2, body2) => {
-    NEW_CAT = JSON.parse(body2);
-    PROCESSED_NEW_CAT = processNewCat(NEW_CAT);
-    PROCESSED_DATA = combineBothCats(PROCESSED_OLD_CAT, PROCESSED_NEW_CAT);
-    app.listen(8081, () => {
-      console.log('Server running at http://localhost:8081/');
+    newCatData = JSON.parse(body2);
+    processedNewCatData = processNewCat(newCatData);
+    langnamesUrl = newCatData.catalogs.find(c => c.identifier === 'langnames').url;
+
+    request(langnamesUrl, (err3, resp3, body3) => {
+      langMap = processLangnames(JSON.parse(body3));
+      processedBothCatData = getLangInfo(
+        combineBothCats(processedOldCatData, processedNewCatData),
+        langMap,
+      );
+      app.listen(8081, () => {
+        console.log('Server running at http://localhost:8081/');
+      });
     });
   });
 });
