@@ -2,7 +2,7 @@
  * Returns the piece of string that comes after the last dot. Don't trust this
  * to get the real file type.
  */
-const getFileExtension = str => str.split('.').reverse()[0];
+const getFileFormat = str => str.split('.').reverse()[0];
 
 /**
  * Returns the shorter of the 2 strings. Falsy value is considered an empty
@@ -39,14 +39,29 @@ const concatReduceToMap = (a, b, fn) => {
  *   { keyName: 'ab', value: 0 }
  * ]
  */
-function mapToList(keyName) {
-  const map = this;
-  return Object.keys(map).sort().map(key => Object.assign({ [keyName]: key }, map[key]));
+// function mapToList(keyName) {
+//   const map = this;
+//   return Object.keys(map).sort().map(key => Object.assign({ [keyName]: key }, map[key]));
+// }
+// Object.prototype.mapToList = mapToList;
+
+/**
+ *
+ */
+function getZipContent(formatString) {
+  const isZip = /application\/zip/.exec(formatString);
+  if (!isZip) {
+    return '';
+  }
+
+  // formatString will contain, for example: ... content=text/usfm
+  const content = /content=[\w]+\/([\w]+)/.exec(formatString);
+  return content[1];
 }
-Object.prototype.mapToList = mapToList;
 
 module.exports = {
-  getFileExtension,
+  getFileFormat,
   pickShorterSlug,
   concatReduceToMap,
+  getZipContent,
 };
