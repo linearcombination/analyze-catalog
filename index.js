@@ -15,8 +15,10 @@ const contentOrder = require('./content_order.json');
 const app = express();
 
 const apiV3Url = 'https://api.door43.org/v3/catalog.json';
+const langDataUrl = 'https://td.unfoldingword.org/exports/langnames.json';
 let unalteredData;
 let alteredData;
+let langData;
 
 
 function alter(data) {
@@ -28,6 +30,7 @@ function cherryPickLang(languages) {
   return languages
     .map(lang => ({
       name: lang.title,
+      englishName: getEnglishName(lang.identifier),
       code: lang.identifier,
       direction: lang.direction,
       contents: orderContent(unNestSubcontent(
@@ -41,6 +44,10 @@ function cherryPickLang(languages) {
       }
       return lang.code > nextLang.code ? 1 : -1;
     });
+}
+
+function getEnglishName(langCode) {
+  return langData.filter(lang => lang.lc === langCode)[0].ang || '';
 }
 
 function cherryPickContents(contents) {
@@ -146,11 +153,15 @@ app.get('/altered/json', (req, res) => {
  *
  */
 
-request(apiV3Url, (err, resp, body) => {
-  unalteredData = JSON.parse(body);
-  alteredData = alter(unalteredData);
+request(langDataUrl, (error, resp, body) => {
+  langData = JSON.parse(body);
 
-  app.listen(8081, () => {
-    console.log('Server running at http://localhost:8081/');
+  request(apiV3Url, (error, resp, body) => {
+    unalteredData = JSON.parse(body);
+    alteredData = alter(unalteredData);
+
+    app.listen(8081, () => {
+      console.log('Server running at http://localhost:8081/');
+    });
   });
 });
