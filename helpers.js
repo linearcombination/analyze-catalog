@@ -11,21 +11,21 @@ const getFileFormat = str => str.split('.').reverse()[0];
  * Returns the shorter of the 2 strings. Falsy value is considered an empty
  * string.
  */
-const pickShorterSlug = (slug1, slug2) => {
-  if (!slug1 && !slug2) return '';
-  if (!slug1 && slug2) return slug2;
-  if (!slug2 && slug1) return slug1;
-  return slug1.length < slug2.length ? slug1 : slug2;
-};
+// const pickShorterSlug = (slug1, slug2) => {
+//   if (!slug1 && !slug2) return '';
+//   if (!slug1 && slug2) return slug2;
+//   if (!slug2 && slug1) return slug1;
+//   return slug1.length < slug2.length ? slug1 : slug2;
+// };
 
 /**
  * Concatenate two arrays and reduce them to a map by running each entry through
  * the reducer (fn). The reducer must return an object.
  */
-const concatReduceToMap = (a, b, fn) => {
-  const c = a ? a.concat(b) : b.concat(a);
-  return c.reduce((map, entry) => fn(map, entry), {});
-};
+// const concatReduceToMap = (a, b, fn) => {
+//   const c = a ? a.concat(b) : b.concat(a);
+//   return c.reduce((map, entry) => fn(map, entry), {});
+// };
 
 /**
  * Convert ...
@@ -65,19 +65,17 @@ function getZipContent(formatString) {
 /**
  *
  */
-function unNestSubcontent(contentCodes, contents) {
-  return contentCodes.reduce((acc, code) => {
-    const targetContents = acc.filter(content => content.code === code);
-    const restOfContents = acc.filter(content => content.code !== code);
+function flattenOnce(arrayOfArrays) {
+  return arrayOfArrays.reduce((all, array) => all.concat(array), []);
+}
 
-    return targetContents
-      .map(content => Object.assign({}, content, {
-        name: content.subcontents[0].name,
-        links: content.subcontents[0].links.slice(),
-        subcontents: content.subcontents.slice(1),
-      }))
-      .concat(restOfContents);
-  }, contents.slice());
+/**
+ *
+ */
+function removeProperty(object, property) {
+  const newObject = Object.assign({}, object);
+  delete newObject[property];
+  return newObject;
 }
 
 /**
@@ -112,10 +110,12 @@ function getCategory(bookCode) {
 
 module.exports = {
   getFileFormat,
-  pickShorterSlug,
-  concatReduceToMap,
+  // pickShorterSlug,
+  // concatReduceToMap,
   getZipContent,
-  unNestSubcontent,
+  // unNestSubcontent,
   orderContent,
   getCategory,
+  removeProperty,
+  flattenOnce,
 };
