@@ -4,13 +4,13 @@
 const express = require('express');
 const request = require('request');
 const fs = require('fs');
-
 const {
+  orderContent,
+  unNestSubcontent,
   getFileFormat,
   getZipContent,
+  getCategory,
 } = require('./helpers');
-const books = require('./books.json');
-const contentOrder = require('./content_order.json');
 
 const app = express();
 
@@ -58,7 +58,7 @@ function cherryPickContents(contents) {
     description: content.description,
     checkingLevel: content.checking.checking_level,
     links: cherryPickLinks(content.formats) || [],
-    subcontents: cherryPickSubcontents(content.projects),
+    subcontents: cherryPickSubcontents(content.projects, content.identifier),
   }));
 }
 
@@ -70,9 +70,15 @@ function cherryPickLinks(links) {
   }));
 }
 
-function cherryPickSubcontents(subcontents) {
+function cherryPickSubcontents(subcontents, contentCode) {
   return subcontents
-    .filter(subcontent => subcontent.formats && subcontent.formats.length > 0)
+    .filter((subcontent) => {
+      const hasFormats = subcontent.formats && subcontent.formats.length > 0;
+      const notTAIntro = !(contentCode === 'ta' && subcontent.identifier === 'intro');
+      const notTAProcessManual = !(contentCode === 'ta' && subcontent.identifier === 'process');
+      const notTACheckingManual = !(contentCode === 'ta' && subcontent.identifier === 'checking');
+      return hasFormats && notTAIntro && notTAProcessManual && notTACheckingManual;
+    })
     .map(subcontent => ({
       name: subcontent.title,
       code: subcontent.identifier,
@@ -82,45 +88,6 @@ function cherryPickSubcontents(subcontents) {
       category: getCategory(subcontent.identifier),
       links: cherryPickLinks(subcontent.formats),
     }));
-}
-
-function unNestSubcontent(contentCodes, contents) {
-  return contentCodes.reduce((acc, code) => {
-    const targetContents = acc.filter(content => content.code === code);
-    const restOfContents = acc.filter(content => content.code !== code);
-
-    return targetContents
-      .map(content => Object.assign({}, content, {
-        name: content.subcontents[0].name,
-        links: content.subcontents[0].links.slice(),
-        subcontents: content.subcontents.slice(1),
-      }))
-      .concat(restOfContents);
-  }, contents.slice());
-}
-
-function orderContent(contents) {
-  const orderedContents = [];
-
-  contents.forEach((content) => {
-    const order = contentOrder[content.code];
-    let offset = 0;
-
-    if (order >= 0) {
-      orderedContents[order + offset] = content;
-    } else {
-      orderedContents.unshift(content);
-      offset += 1;
-    }
-  });
-
-  // Filter out the empty in-between spaces
-  return orderedContents.filter(content => content);
-}
-
-function getCategory(bookCode) {
-  const code = bookCode.toLowerCase();
-  return (books[code] && `bible-${books[code].anth}`) || '';
 }
 
 /**
@@ -153,11 +120,11 @@ app.get('/altered/json', (req, res) => {
  *
  */
 
-request(langDataUrl, (error, resp, body) => {
-  langData = JSON.parse(body);
+request(langDataUrl, (langDataError, langDataResp, langDataBody) => {
+  langData = JSON.parse(langDataBody);
 
-  request(apiV3Url, (error, resp, body) => {
-    unalteredData = JSON.parse(body);
+  request(apiV3Url, (contentError, contentResp, contentBody) => {
+    unalteredData = JSON.parse(contentBody);
     alteredData = alter(unalteredData);
 
     app.listen(8081, () => {

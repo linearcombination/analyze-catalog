@@ -1,3 +1,6 @@
+const books = require('./books.json');
+const contentOrder = require('./content_order.json');
+
 /**
  * Returns the piece of string that comes after the last dot. Don't trust this
  * to get the real file type.
@@ -59,9 +62,60 @@ function getZipContent(formatString) {
   return content[1];
 }
 
+/**
+ *
+ */
+function unNestSubcontent(contentCodes, contents) {
+  return contentCodes.reduce((acc, code) => {
+    const targetContents = acc.filter(content => content.code === code);
+    const restOfContents = acc.filter(content => content.code !== code);
+
+    return targetContents
+      .map(content => Object.assign({}, content, {
+        name: content.subcontents[0].name,
+        links: content.subcontents[0].links.slice(),
+        subcontents: content.subcontents.slice(1),
+      }))
+      .concat(restOfContents);
+  }, contents.slice());
+}
+
+/**
+ *
+ */
+function orderContent(contents) {
+  const orderedContents = [];
+
+  contents.forEach((content) => {
+    const order = contentOrder[content.code];
+    let offset = 0;
+
+    if (order >= 0) {
+      orderedContents[order + offset] = content;
+    } else {
+      orderedContents.unshift(content);
+      offset += 1;
+    }
+  });
+
+  // Filter out the empty in-between spaces
+  return orderedContents.filter(content => content);
+}
+
+/**
+ *
+ */
+function getCategory(bookCode) {
+  const code = bookCode.toLowerCase();
+  return (books[code] && `bible-${books[code].anth}`) || '';
+}
+
 module.exports = {
   getFileFormat,
   pickShorterSlug,
   concatReduceToMap,
   getZipContent,
+  unNestSubcontent,
+  orderContent,
+  getCategory,
 };
