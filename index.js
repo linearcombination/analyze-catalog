@@ -12,6 +12,7 @@ const {
   removeProperty,
   flattenOnce,
 } = require('./helpers');
+const additionalContents = require('./additional_contents.json');
 
 const app = express();
 
@@ -29,7 +30,8 @@ let langData;
 
 function alter(data) {
   const cherryPickedData = cherryPickLang(data.languages);
-  return cherryPickedData;
+  const augmentedData = addAdditionalLanguage(cherryPickedData);
+  return augmentedData;
 }
 
 function cherryPickLang(languages) {
@@ -39,10 +41,15 @@ function cherryPickLang(languages) {
       englishName: getEnglishName(lang.identifier),
       code: lang.identifier,
       direction: lang.direction,
-      contents: orderContent(unNestSubcontent(
-        ['obs', 'obs-tn', 'obs-tq', 'tw'],
-        cherryPickContents(lang.resources),
-      )),
+      contents: orderContent(
+        addAdditionalContent(
+          lang.identifier,
+          unNestSubcontent(
+            ['obs', 'obs-tn', 'obs-tq', 'tw'],
+            cherryPickContents(lang.resources),
+          ),
+        ),
+      ),
     }))
     .sort((lang, nextLang) => {
       if (lang.code === nextLang.code) {
@@ -50,6 +57,30 @@ function cherryPickLang(languages) {
       }
       return lang.code > nextLang.code ? 1 : -1;
     });
+}
+
+function addAdditionalLanguage(data) {
+  const additionalContentsToAdd = additionalContents.filter(language => (
+    data.filter(l => l.code === language.code).length === 0
+  ));
+
+  const languagesToAdd = additionalContentsToAdd.map(language => ({
+    name: getName(language.code),
+    englishName: getEnglishName(language.code),
+    code: language.code,
+    direction: getDirection(language.code),
+    contents: language.contents.slice(),
+  }));
+
+  return data.concat(languagesToAdd);
+}
+
+function getName(langCode) {
+  return langData.filter(lang => lang.lc === langCode)[0].ln || 'Unknown';
+}
+
+function getDirection(langCode) {
+  return langData.filter(lang => lang.lc === langCode)[0].ld || 'ltr';
 }
 
 function getEnglishName(langCode) {
@@ -102,6 +133,16 @@ function cherryPickSubcontents(subcontents, contentCode) {
       category: getCategory(subcontent.identifier),
       links: cherryPickLinks(subcontent.formats),
     }));
+}
+
+function addAdditionalContent(langCode, contents) {
+  const results = additionalContents.filter(language => language.code === langCode);
+  if (results.length === 0) {
+    return contents;
+  }
+
+  const contentsToAdd = flattenOnce(results.map(result => result.contents));
+  return contents.concat(contentsToAdd);
 }
 
 function unNestSubcontent(contentCodes, contents) {
