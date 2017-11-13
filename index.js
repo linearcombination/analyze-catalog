@@ -32,16 +32,22 @@ let langData;
 function alter(data) {
   const cherryPickedData = cherryPickLang(data.languages);
   const augmentedData = addAdditionalLanguage(cherryPickedData);
-  const finalData = augmentedData.sort((first, second) => {
-    const nameOfFirst = first.englishName || first.name;
-    const nameOfSecond = second.englishName || first.name;
+  const sortedLanguageData = augmentedData.sort(byNameOrEnglishName);
+  const sortedContentData = sortedLanguageData.map(d => ({
+    ...d,
+    contents: orderContent(d.contents),
+  }));
+  return sortedContentData;
+}
 
-    if (nameOfFirst === nameOfSecond) {
-      return 0;
-    }
-    return nameOfFirst < nameOfSecond ? -1 : 1;
-  });
-  return finalData;
+function byNameOrEnglishName(first, second) {
+  const nameOfFirst = first.englishName || first.name;
+  const nameOfSecond = second.englishName || first.name;
+
+  if (nameOfFirst === nameOfSecond) {
+    return 0;
+  }
+  return nameOfFirst < nameOfSecond ? -1 : 1;
 }
 
 function cherryPickLang(languages) {
@@ -51,11 +57,9 @@ function cherryPickLang(languages) {
       englishName: getEnglishName(lang.identifier),
       code: lang.identifier,
       direction: lang.direction,
-      contents: orderContent(
-        unNestSubcontent(
-          ['obs', 'obs-tn', 'obs-tq', 'tw'],
-          cherryPickContents(lang.resources),
-        ),
+      contents: unNestSubcontent(
+        ['obs', 'obs-tn', 'obs-tq', 'tw'],
+        cherryPickContents(lang.resources),
       ),
     }))
     .sort((lang, nextLang) => {
