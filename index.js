@@ -42,7 +42,7 @@ function alter(data) {
 
 function byNameOrEnglishName(first, second) {
   const nameOfFirst = first.englishName || first.name;
-  const nameOfSecond = second.englishName || first.name;
+  const nameOfSecond = second.englishName || second.name;
 
   if (nameOfFirst === nameOfSecond) {
     return 0;
