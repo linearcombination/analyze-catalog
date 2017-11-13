@@ -52,12 +52,9 @@ function cherryPickLang(languages) {
       code: lang.identifier,
       direction: lang.direction,
       contents: orderContent(
-        addAdditionalContent(
-          lang.identifier,
-          unNestSubcontent(
-            ['obs', 'obs-tn', 'obs-tq', 'tw'],
-            cherryPickContents(lang.resources),
-          ),
+        unNestSubcontent(
+          ['obs', 'obs-tn', 'obs-tq', 'tw'],
+          cherryPickContents(lang.resources),
         ),
       ),
     }))
@@ -133,7 +130,7 @@ function addAdditionalLanguage(data) {
         for (let l = 0; l < subcontent.links.length; l += 1) {
           const link = subcontent.links[l];
           const existingLinkIndex = existingSubcontent.links
-            .findIndex(x => x.format === link.format && x.url === link.url);
+            .findIndex(x => x.format === link.format);
 
           if (existingLinkIndex === -1) {
             console.log('Merge only the links for', lang.code, content.code, subcontent.code);
@@ -220,20 +217,6 @@ function cherryPickSubcontents(subcontents, contentCode) {
       category: getCategory(subcontent.identifier),
       links: cherryPickLinks(subcontent.formats),
     }));
-}
-
-function addAdditionalContent(langCode, contents) {
-  const results = additionalContents.filter(language => language.code === langCode);
-  if (results.length === 0) {
-    return contents;
-  }
-
-  const contentsToAdd = flattenOnce(results.map(result => result.contents));
-  const onlyMissingContents = contentsToAdd.filter(newContent => (
-    contents.filter(existingContent => existingContent.code === newContent.code).length <= 0
-  ));
-
-  return contents.concat(onlyMissingContents);
 }
 
 function unNestSubcontent(contentCodes, contents) {
