@@ -13,6 +13,7 @@ const {
   flattenOnce,
 } = require('./helpers');
 const additionalContents = require('./additional_contents.json');
+const gogsContents = require('./gogs.json');
 
 const app = express();
 
@@ -31,7 +32,16 @@ let langData;
 function alter(data) {
   const cherryPickedData = cherryPickLang(data.languages);
   const augmentedData = addAdditionalLanguage(cherryPickedData);
-  return augmentedData;
+  const finalData = augmentedData.sort((first, second) => {
+    const nameOfFirst = first.englishName || first.name;
+    const nameOfSecond = second.englishName || first.name;
+
+    if (nameOfFirst === nameOfSecond) {
+      return 0;
+    }
+    return nameOfFirst < nameOfSecond ? -1 : 1;
+  });
+  return finalData;
 }
 
 function cherryPickLang(languages) {
@@ -60,19 +70,96 @@ function cherryPickLang(languages) {
 }
 
 function addAdditionalLanguage(data) {
-  const additionalContentsToAdd = additionalContents.filter(language => (
-    data.filter(l => l.code === language.code).length === 0
-  ));
+  const dataToAdd = additionalContents
+    .concat(gogsContents)
+    .map(language => ({
+      name: getName(language.code),
+      englishName: getEnglishName(language.code),
+      code: language.code,
+      direction: getDirection(language.code),
+      contents: language.contents.slice(),
+    }));
 
-  const languagesToAdd = additionalContentsToAdd.map(language => ({
-    name: getName(language.code),
-    englishName: getEnglishName(language.code),
-    code: language.code,
-    direction: getDirection(language.code),
-    contents: language.contents.slice(),
-  }));
+  const combinedData = data.slice();
 
-  return data.concat(languagesToAdd);
+  /**
+   * Add only what's needed. Possible addition:
+   *   1. Everything for a language
+   *   2. New language contents (resources)
+   *   3. New content subcontents (books)
+   *   4. New subcontent links (format and/or URL)
+   */
+  // TODO: Find a better way to merge additional data
+  for (let i = 0; i < dataToAdd.length; i += 1) {
+    const lang = dataToAdd[i];
+    const existingLangIndex = combinedData.findIndex(l => l.code === lang.code);
+
+    if (existingLangIndex === -1) {
+      console.log('Merge the whole language', lang.code);
+      combinedData.push(lang);
+      continue;
+    }
+
+    const existingLang = combinedData[existingLangIndex];
+
+    for (let j = 0; j < lang.contents.length; j += 1) {
+      const content = lang.contents[j];
+      const existingContentIndex =
+        existingLang.contents.findIndex(c => c.code === content.code);
+
+      if (existingContentIndex === -1) {
+        console.log('Merge only the contents for', lang.code, content.code);
+        combinedData[existingLangIndex].contents.push(content);
+        continue;
+      }
+
+      const existingContent = existingLang.contents[existingContentIndex];
+
+      for (let k = 0; k < content.subcontents.length; k += 1) {
+        const subcontent = content.subcontents[k];
+        const existingSubcontentIndex =
+          existingContent.subcontents.findIndex(s => s.code === subcontent.code);
+
+        if (existingSubcontentIndex === -1) {
+          console.log('Merge only the subcontents for', lang.code, content.code, subcontent.code);
+          combinedData[existingLangIndex]
+            .contents[existingContentIndex]
+            .subcontents.push(subcontent);
+          continue;
+        }
+
+        const existingSubcontent = existingContent.subcontents[existingSubcontentIndex];
+
+        for (let l = 0; l < subcontent.links.length; l += 1) {
+          const link = subcontent.links[l];
+          const existingLinkIndex = existingSubcontent.links
+            .findIndex(x => x.format === link.format && x.url === link.url);
+
+          if (existingLinkIndex === -1) {
+            console.log('Merge only the links for', lang.code, content.code, subcontent.code);
+            combinedData[existingLangIndex]
+              .contents[existingContentIndex]
+              .subcontents[existingSubcontentIndex]
+              .links.push(link);
+            continue;
+          }
+
+          // At this point, the additional content has the same language, content, subcontent, link
+          // format, and link URL. There's no need to add it to the list.
+          console.log(
+            'No need to merge',
+            lang.code,
+            content.code,
+            subcontent.code,
+            link.format,
+            link.url,
+          );
+        }
+      }
+    }
+  }
+
+  return combinedData;
 }
 
 function getName(langCode) {
@@ -142,7 +229,11 @@ function addAdditionalContent(langCode, contents) {
   }
 
   const contentsToAdd = flattenOnce(results.map(result => result.contents));
-  return contents.concat(contentsToAdd);
+  const onlyMissingContents = contentsToAdd.filter(newContent => (
+    contents.filter(existingContent => existingContent.code === newContent.code).length <= 0
+  ));
+
+  return contents.concat(onlyMissingContents);
 }
 
 function unNestSubcontent(contentCodes, contents) {
