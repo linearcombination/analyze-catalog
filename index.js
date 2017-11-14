@@ -101,6 +101,10 @@ function addAdditionalLanguage(data) {
       continue;
     }
 
+    if (!lang.contents) {
+      continue;
+    }
+
     const existingLang = combinedData[existingLangIndex];
 
     for (let j = 0; j < lang.contents.length; j += 1) {
@@ -116,6 +120,25 @@ function addAdditionalLanguage(data) {
 
       const existingContent = existingLang.contents[existingContentIndex];
 
+      if (Array.isArray(content.links)) {
+        for (let l = 0; l < content.links.length; l += 1) {
+          const link = content.links[l];
+          const existingLinkIndex =
+            existingContent.links.findIndex(x => x.format === link.format);
+          
+          if (existingLinkIndex === -1) {
+            console.log('Merge only the content link', lang.code, content.code, link.format);
+            combinedData[existingLangIndex]
+              .contents[existingContentIndex]
+              .links.push(link);
+          }
+        }
+      }
+
+      if (!content.subcontents) {
+        continue;
+      }
+
       for (let k = 0; k < content.subcontents.length; k += 1) {
         const subcontent = content.subcontents[k];
         const existingSubcontentIndex =
@@ -126,6 +149,10 @@ function addAdditionalLanguage(data) {
           combinedData[existingLangIndex]
             .contents[existingContentIndex]
             .subcontents.push(subcontent);
+          continue;
+        }
+
+        if (!subcontent.links) {
           continue;
         }
 
