@@ -14,6 +14,7 @@ const {
 } = require('./helpers');
 const additionalContents = require('./additional_contents.json');
 const gogsContents = require('./gogs.json');
+const handmadeContents = require('./handmade.json');
 
 const app = express();
 
@@ -73,6 +74,7 @@ function cherryPickLang(languages) {
 function addAdditionalLanguage(data) {
   const dataToAdd = additionalContents
     .concat(gogsContents)
+    .concat(handmadeContents)
     .map(language => ({
       name: getName(language.code),
       englishName: getEnglishName(language.code),
@@ -125,7 +127,7 @@ function addAdditionalLanguage(data) {
           const link = content.links[l];
           const existingLinkIndex =
             existingContent.links.findIndex(x => x.format === link.format);
-          
+
           if (existingLinkIndex === -1) {
             console.log('Merge only the content link', lang.code, content.code, link.format);
             combinedData[existingLangIndex]
