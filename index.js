@@ -34,11 +34,14 @@ function alter(data) {
   const cherryPickedData = cherryPickLang(data.languages);
   const augmentedData = addAdditionalLanguage(cherryPickedData);
   const sortedLanguageData = augmentedData.sort(byNameOrEnglishName);
-  const sortedContentData = sortedLanguageData.map(d => ({
+  const processedContentData = sortedLanguageData.map(d => ({
     ...d,
-    contents: orderContent(d.contents),
+    contents: unNestSubcontent(
+      ['obs', 'obs-tn', 'obs-tq', 'tw'],
+      orderContent(d.contents),
+    ),
   }));
-  return sortedContentData;
+  return processedContentData;
 }
 
 function byNameOrEnglishName(first, second) {
@@ -58,10 +61,7 @@ function cherryPickLang(languages) {
       englishName: getEnglishName(lang.identifier),
       code: lang.identifier,
       direction: lang.direction,
-      contents: unNestSubcontent(
-        ['obs', 'obs-tn', 'obs-tq', 'tw'],
-        cherryPickContents(lang.resources),
-      ),
+      contents: cherryPickContents(lang.resources),
     }))
     .sort((lang, nextLang) => {
       if (lang.code === nextLang.code) {
@@ -258,15 +258,20 @@ function unNestSubcontent(contentCodes, contents) {
     const restOfContents = acc.filter(content => content.code !== code);
 
     return targetContents
-      .map(content => Object.assign({}, content, {
-        name: content.subcontents[0].name,
-        links: code === 'obs'
-          ? content.subcontents[0].links.map(l => removeProperty(l, 'chapters'))
-          : content.subcontents[0].links.slice(),
-        subcontents: code === 'obs'
-          ? processOBSSubcontent(content.subcontents)
-          : content.subcontents.slice(1),
-      }))
+      .map((content) => {
+        if (!content.subcontents || content.subcontents.length < 1) {
+          return content;
+        }
+        return Object.assign({}, content, {
+          name: content.subcontents[0].name,
+          links: code === 'obs'
+            ? content.subcontents[0].links.map(l => removeProperty(l, 'chapters'))
+            : content.subcontents[0].links.slice(),
+          subcontents: code === 'obs'
+            ? processOBSSubcontent(content.subcontents)
+            : content.subcontents.slice(1),
+        });
+      })
       .concat(restOfContents);
   }, contents.slice());
 }
@@ -278,19 +283,19 @@ function processOBSSubcontent(subcontents) {
 }
 
 function compileChapters(links) {
-  return links.reduce((allChapters, link) => (
-    allChapters.concat(link.chapters.map(chapter => (
+  return links.reduce((allChapters, link) => {
+    const chapters = link.chapters || [];
+    return allChapters.concat(chapters.map(chapter => (
       // Add the info we need from the parent
       Object.assign({}, chapter, { quality: link.quality })
-    )))
-  ), []);
+    )));
+  }, []);
 }
 
 function sortByChapter(item, nextItem) {
   if (item.name === nextItem.name) {
     return 0;
   }
-
   return item.name > nextItem.name ? 1 : -1;
 }
 
