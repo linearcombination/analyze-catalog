@@ -4,6 +4,7 @@
 const express = require('express');
 const request = require('request');
 const fs = require('fs');
+
 const {
   orderContent,
   getFileFormat,
@@ -12,9 +13,10 @@ const {
   removeProperty,
   flattenOnce,
 } = require('./helpers');
-const additionalContents = require('./additional_contents.json');
-const gogsContents = require('./gogs.json');
-const handmadeContents = require('./handmade.json');
+
+const manualData = require('./data/manual.json');
+const gogsData = require('./data/gogs.json');
+const handmadeData = require('./data/handmade.json');
 
 const app = express();
 
@@ -72,9 +74,9 @@ function cherryPickLang(languages) {
 }
 
 function addAdditionalLanguage(data) {
-  const dataToAdd = additionalContents
-    .concat(gogsContents)
-    .concat(handmadeContents)
+  const dataToAdd = manualData
+    .concat(gogsData)
+    .concat(handmadeData)
     .map(language => ({
       name: getName(language.code),
       englishName: getEnglishName(language.code),
