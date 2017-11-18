@@ -5,14 +5,15 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --watch"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.2.0",
-    "eslint-plugin-import": "^2.7.0"
+    "eslint-plugin-import": "^2.7.0",
+    "jest": "^21.2.1"
   },
   "dependencies": {
     "express": "^4.15.3",
