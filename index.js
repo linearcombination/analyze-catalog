@@ -20,10 +20,8 @@ const handmadeData = require('./data/handmade.json');
 
 const app = express();
 
-const apiV3Url = 'https://api.door43.org/v3/catalog.json';
-const langDataUrl = 'https://td.unfoldingword.org/exports/langnames.json';
-let unalteredData;
-let alteredData;
+let catalogData;
+let massagedData;
 let langData;
 
 /**
@@ -32,11 +30,109 @@ let langData;
  *
  */
 
-function alter(data) {
-  const cherryPickedData = cherryPickLang(data.languages);
-  const augmentedData = addAdditionalLanguage(cherryPickedData);
-  const sortedLanguageData = augmentedData.sort(byNameOrEnglishName);
-  const processedContentData = sortedLanguageData.map(d => ({
+function massage(data) {
+  // const cherryPickedData = cherryPickLang(data.languages);
+  const mappedLanguages = data.languages.map(lang => ({
+    name: lang.title,
+    code: lang.identifier,
+    direction: lang.direction,
+    contents: lang.resources,
+  }));
+
+  const mappedContents = mappedLanguages.map(l => ({
+    ...l,
+    contents: l.contents.map(content => ({
+      name: content.title,
+      code: content.identifier,
+      subject: content.subject,
+      description: content.description,
+      checkingLevel: content.checking.checking_level,
+      links: content.formats,
+      subcontents: content.projects,
+    })),
+  }));
+
+  const mappedContentLinks = mappedContents.map(l => ({
+    ...l,
+    contents: l.contents.map(c => ({
+      ...c,
+      links: c.links && c.links.length > 0
+        ? c.links.map(link => ({
+          url: link.url,
+          format: getFileFormat(link.url),
+          zipContent: getZipContent(link.format),
+          quality: link.quality || null,
+        }))
+        : [],
+    })),
+  }));
+
+  const mappedSubcontents = mappedContentLinks.map(l => ({
+    ...l,
+    contents: l.contents.map(c => ({
+      ...c,
+      subcontents: c.subcontents && c.subcontents.length > 0
+        ? c.subcontents.map(s => ({
+          name: s.title,
+          code: s.identifier,
+          // Use bracket notation because .sort is an array function.
+          // eslint-disable-next-line dot-notation
+          sort: s['sort'],
+          category: getCategory(s.identifier),
+          links: s.formats,
+        }))
+        : [],
+    })),
+  }));
+
+  const filteredSubcontents = mappedSubcontents.map(l => ({
+    ...l,
+    contents: l.contents.map(c => ({
+      ...c,
+      subcontents: c.subcontents && c.subcontents.length > 0
+        ? c.subcontents.filter((s) => {
+          const hasLinks = s.links && s.links.length > 0;
+          // Special cases
+          const notTAIntro = !(c.code === 'ta' && s.code === 'intro');
+          const notTAProcessManual = !(c.code === 'ta' && s.code === 'process');
+          const notTACheckingManual = !(c.code === 'ta' && s.code === 'checking');
+          return hasLinks && notTAIntro && notTAProcessManual && notTACheckingManual;
+        })
+        : [],
+    })),
+  }));
+
+  const mappedSubcontentLinks = filteredSubcontents.map(l => ({
+    ...l,
+    contents: l.contents.map(c => ({
+      ...c,
+      subcontents: c.subcontents && c.subcontents.length > 0
+        ? c.subcontents.map(s => ({
+          ...s,
+          links: s.links && s.links.length > 0
+            ? s.links.map(link => ({
+              url: link.url,
+              format: getFileFormat(link.url),
+              zipContent: getZipContent(link.format),
+              quality: link.quality || null,
+              chapters: link.chapters || [],
+            }))
+            : [],
+        }))
+        : [],
+    })),
+  }));
+
+  const combinedData = addAdditionalData(mappedSubcontentLinks);
+
+  const withEnglishName = combinedData.map(l => ({
+    ...l,
+    englishName: getEnglishName(l.code),
+  }));
+
+  const sortedByNameOrEnglishName = withEnglishName.sort(byNameOrEnglishName);
+
+  const processedContentData = sortedByNameOrEnglishName.map(d => ({
     ...d,
     contents: unNestSubcontent(
       ['obs', 'obs-tn', 'obs-tq', 'tw'],
@@ -56,30 +152,13 @@ function byNameOrEnglishName(first, second) {
   return nameOfFirst < nameOfSecond ? -1 : 1;
 }
 
-function cherryPickLang(languages) {
-  return languages
-    .map(lang => ({
-      name: lang.title,
-      englishName: getEnglishName(lang.identifier),
-      code: lang.identifier,
-      direction: lang.direction,
-      contents: cherryPickContents(lang.resources),
-    }))
-    .sort((lang, nextLang) => {
-      if (lang.code === nextLang.code) {
-        return 0;
-      }
-      return lang.code > nextLang.code ? 1 : -1;
-    });
-}
-
-function addAdditionalLanguage(data) {
+function addAdditionalData(data) {
   const dataToAdd = manualData
     .concat(gogsData)
     .concat(handmadeData)
     .map(language => ({
       name: getName(language.code),
-      englishName: getEnglishName(language.code),
+      // englishName: getEnglishName(language.code),
       code: language.code,
       direction: getDirection(language.code),
       contents: language.contents.slice(),
@@ -206,54 +285,6 @@ function getEnglishName(langCode) {
   return langData.filter(lang => lang.lc === langCode)[0].ang || '';
 }
 
-function cherryPickContents(contents) {
-  return contents.map(content => ({
-    name: content.title,
-    code: content.identifier,
-    subject: content.subject,
-    description: content.description,
-    checkingLevel: content.checking.checking_level,
-    links: (cherryPickLinks(content.formats) || []).map(l => removeProperty(l, 'chapters')),
-    subcontents: cherryPickSubcontents(content.projects, content.identifier),
-  }));
-}
-
-function cherryPickLinks(links) {
-  if (!links || links.length <= 0) {
-    return [];
-  }
-
-  return links.map(link => ({
-    url: link.url,
-    format: getFileFormat(link.url),
-    zipContent: getZipContent(link.format),
-    quality: link.quality || null,
-    chapters: link.chapters || [],
-  }));
-}
-
-function cherryPickSubcontents(subcontents, contentCode) {
-  return subcontents
-    .filter((subcontent) => {
-      const hasFormats = subcontent.formats && subcontent.formats.length > 0;
-      // Special cases
-      const notTAIntro = !(contentCode === 'ta' && subcontent.identifier === 'intro');
-      const notTAProcessManual = !(contentCode === 'ta' && subcontent.identifier === 'process');
-      const notTACheckingManual = !(contentCode === 'ta' && subcontent.identifier === 'checking');
-
-      return hasFormats && notTAIntro && notTAProcessManual && notTACheckingManual;
-    })
-    .map(subcontent => ({
-      name: subcontent.title,
-      code: subcontent.identifier,
-      // .sort is an array function.
-      // eslint-disable-next-line dot-notation
-      sort: subcontent['sort'],
-      category: getCategory(subcontent.identifier),
-      links: cherryPickLinks(subcontent.formats),
-    }));
-}
-
 function unNestSubcontent(contentCodes, contents) {
   return contentCodes.reduce((acc, code) => {
     const targetContents = acc.filter(content => content.code === code);
@@ -266,9 +297,7 @@ function unNestSubcontent(contentCodes, contents) {
         }
         return Object.assign({}, content, {
           name: content.subcontents[0].name,
-          links: code === 'obs'
-            ? content.subcontents[0].links.map(l => removeProperty(l, 'chapters'))
-            : content.subcontents[0].links.slice(),
+          links: content.subcontents[0].links.map(l => removeProperty(l, 'chapters')),
           subcontents: code === 'obs'
             ? processOBSSubcontent(content.subcontents)
             : content.subcontents.slice(1),
@@ -340,16 +369,16 @@ function mergeSameChapters(compiledChapters, chapter) {
  */
 
 app.get('/', (req, res) => {
-  res.json(unalteredData);
+  res.json(catalogData);
 });
 
-app.get('/altered', (req, res) => {
-  res.json(alteredData);
+app.get('/massaged', (req, res) => {
+  res.json(massagedData);
 });
 
-app.get('/altered/json', (req, res) => {
-  const filePath = './altered_data.json';
-  fs.writeFile(filePath, JSON.stringify(alteredData), (err) => {
+app.get('/massaged/json', (req, res) => {
+  const filePath = './massaged_data.json';
+  fs.writeFile(filePath, JSON.stringify(massagedData), (err) => {
     if (err) {
       return console.log(err);
     }
@@ -363,15 +392,17 @@ app.get('/altered/json', (req, res) => {
  *
  */
 
-request(langDataUrl, (langDataError, langDataResp, langDataBody) => {
-  langData = JSON.parse(langDataBody);
+main();
 
-  request(apiV3Url, (contentError, contentResp, contentBody) => {
-    unalteredData = JSON.parse(contentBody);
-    alteredData = alter(unalteredData);
-
-    app.listen(8081, () => {
-      console.log('Server running at http://localhost:8081/');
+function main() {
+  request('https://td.unfoldingword.org/exports/langnames.json', (err1, resp1, body1) => {
+    langData = JSON.parse(body1);
+    request('https://api.door43.org/v3/catalog.json', (err2, resp2, body2) => {
+      catalogData = JSON.parse(body2);
+      massagedData = massage(catalogData);
+      app.listen(8081, () => {
+        console.log('Server running at http://localhost:8081/');
+      });
     });
   });
-});
+}

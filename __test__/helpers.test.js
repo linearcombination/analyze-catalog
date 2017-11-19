@@ -70,11 +70,14 @@ describe('removeProperty', () => {
       test: 0,
       tests: 1,
     };
-    const output = {
-      tests: 1,
-    };
+    const output = { tests: 1 };
     expect(removeProperty(input, 'test')).toEqual(output);
     expect(input).toEqual(input);
+  });
+
+  it('returns the same object if specified property is not found', () => {
+    const input = { findMe: 1 };
+    expect(removeProperty(input, 'areYouThere')).toEqual(input);
   });
 });
 
