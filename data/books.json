@@ -64,5 +64,5 @@
   "2jn": { "name": "2 John", "num": 64, "anth": "nt" },
   "3jn": { "name": "3 John", "num": 65, "anth": "nt" },
   "jud": { "name": "Jude", "num": 66, "anth": "nt" },
-  "rev": { "name": "Revelation", "num": 67, "anth": "nt "}
+  "rev": { "name": "Revelation", "num": 67, "anth": "nt"}
 }
