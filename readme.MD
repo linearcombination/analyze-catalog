@@ -89,3 +89,9 @@ link = {
   quality: 'any' || null,
 }
 ```
+
+# Unit-Testing
+
+- Name test files `<fileUnderTest>.test.js`.
+- Put test files in `__test__` folder.
+- Run `npm test`
