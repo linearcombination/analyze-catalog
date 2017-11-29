@@ -11,9 +11,10 @@
 
 # Endpoints
 
-- `/old` - old catalog
-- `/old/res` - old catalog processed
-- `/new/` - new catalog
-- `/new/res` - new catalog processed
-- `/both/res` - both catalog merged and processed
-- `/both/res/json` - download the merged and processed data as json
+- `/` - straight from catalog
+- `/massaged` - catalog processed and combined with additional json files
+- `/massaged/json` - download the massaged and combined json
+
+# Tools
+
+- `node compare.js <old.json> <new.json>` - compare two massaged json files semantically, ignoring order of links, contents, and subcontents.
