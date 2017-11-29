@@ -18,3 +18,22 @@
 # Tools
 
 - `node compare.js <old.json> <new.json>` - compare two massaged json files semantically, ignoring order of links, contents, and subcontents.
+
+# Combining Extra JSON Files
+
+- Add the JSON file (must adhere to the structure) into `data` folder.
+- In `index.js`, require it.
+
+```
+const extraData = require('./data/extra.json');
+```
+
+- In `index.js`, inside `addAdditionalData()`, concat the data.
+
+```
+const dataToAdd = manualData
+    .concat(gogsData)
+    .concat(handmadeData)
+    .concat(extraData)
+    .map(...);
+```
