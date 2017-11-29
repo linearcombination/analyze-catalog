@@ -24,13 +24,13 @@
 - Add the JSON file (must adhere to the structure) into `data` folder.
 - In `index.js`, require it.
 
-```
+``` javascript
 const extraData = require('./data/extra.json');
 ```
 
 - In `index.js`, inside `addAdditionalData()`, concat the data.
 
-```
+``` javascript
 const dataToAdd = manualData
     .concat(gogsData)
     .concat(handmadeData)
@@ -40,7 +40,7 @@ const dataToAdd = manualData
 
 # End Result Structure
 
-```
+``` javascript
 [
   language,
 ]
