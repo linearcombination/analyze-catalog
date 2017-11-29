@@ -37,3 +37,55 @@ const dataToAdd = manualData
     .concat(extraData)
     .map(...);
 ```
+
+# End Result Structure
+
+```
+[
+  language,
+]
+
+language = {
+  code: 'en',
+  name: 'English',
+  englishName: 'English' || '',
+  direction: 'ltr' || 'rtl',
+  contents: [
+    content,
+  ]
+}
+
+// Resource for a language
+content = {
+  code: 'ulb',
+  name: 'Unlocked Literal Bible',
+  subject: 'Bible' || 'Bible stories' || 'Some other',
+  description: 'Some text' || '',
+  checkingLevel: '1' || '2' || '3' || '',
+  links: [
+    link,
+  ],
+  subcontents: [
+    subcontent,
+  ]
+}
+
+// Book/project of a resource
+subcontent = {
+  code: 'gen',
+  name: 'Genesis',
+  sort: 0,
+  category: 'bible-ot' || 'bible-nt',
+  links: [
+    link,
+  ]
+}
+
+// Same for both content and subcontent
+link = {
+  url: 'https://google.com',
+  format: 'any',
+  zipContent: 'any' || '',
+  quality: 'any' || null,
+}
+```
