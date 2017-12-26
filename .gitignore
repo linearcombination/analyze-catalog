@@ -1,3 +1,4 @@
 node_modules
 massaged_data.json
 .DS_Store
+*.swp
