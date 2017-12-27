@@ -69,11 +69,20 @@ function getCategory(bookCode) {
   return (books[code] && `bible-${books[code].anth}`) || '';
 }
 
+/**
+ *
+ */
+function getBookSortOrder(bookCode) {
+  const code = bookCode.toLowerCase();
+  return (books[code] && books[code]["num"]) || 0;
+}
+
 module.exports = {
   getFileFormat,
   getZipContent,
   orderContent,
   getCategory,
+  getBookSortOrder,
   removeProperty,
   flattenOnce,
 };

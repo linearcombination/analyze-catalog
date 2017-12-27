@@ -15,6 +15,7 @@ const {
   addEnglishNames,
   sortLanguageByNameOrEnglishName,
   sortContents,
+  sortSubContents,
   unnestSubcontents,
 } = require('./functions');
 
@@ -50,6 +51,7 @@ function massage(data) {
   result = addEnglishNames(langData, result);
   result = sortLanguageByNameOrEnglishName(result);
   result = sortContents(contentOrderData, result);
+  result = sortSubContents(result);
   result = unnestSubcontents(result);
 
   return result;

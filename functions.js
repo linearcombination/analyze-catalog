@@ -2,6 +2,7 @@ const {
   getFileFormat,
   getZipContent,
   getCategory,
+  getBookSortOrder,
   removeProperty,
   flattenOnce,
 } = require('./helpers');
@@ -149,6 +150,30 @@ function sortContents(contentOrder, languages) {
   }));
 }
 
+function sortSubContents(languages) {
+  return languages.map(l => ({
+    ...l,
+    contents: l.contents.map(c => ({
+        ...c,
+        subcontents: (c.subcontents || []).sort((first, second) => {
+            // If sort field is provided use that
+            const sortOrderOfFirst = first.sort;
+            const sortOrderOfSecond = second.sort;
+            if (sortOrderOfFirst !== sortOrderOfSecond) {
+                return sortOrderOfFirst < sortOrderOfSecond ? -1 : 1;
+            }
+            // Else lookup book sort order
+            const bookSortOrderOfFirst = getBookSortOrder(first.code);
+            const bookSortOrderOfSecond = getBookSortOrder(second.code);
+            if (bookSortOrderOfFirst === bookSortOrderOfSecond) {
+                return 0;
+            }
+            return bookSortOrderOfFirst < bookSortOrderOfSecond ? -1 : 1;
+        })
+    })),
+  }));
+}
+
 function unnestSubcontents(languages) {
   const subcontentsToPromote = ['obs', 'obs-tn', 'obs-tq', 'tw'];
 
@@ -246,5 +271,6 @@ module.exports = {
   addEnglishNames,
   sortLanguageByNameOrEnglishName,
   sortContents,
+  sortSubContents,
   unnestSubcontents,
 };
