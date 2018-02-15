@@ -398,6 +398,94 @@
     ]
   }, 
   {
+    "code": "en", 
+    "contents": [
+      {
+        "code": "", 
+        "name": "Review Guide", 
+        "subject": "",
+        "links": [], 
+        "subcontents": [
+          {
+              "name": "Doctrines of God and the Holy Spirit",
+              "code": "",
+              "sort": 2,
+              "category": "",
+              "links": [
+                  {
+                      "url": "http://bibleineverylanguage.org/wp-content/uploads/2018/02/2.-Doctrine-of-God-Loving_Relational-Nature-the-Father-Doctrine-of-Holy-Spirit-Person-and-Work.pdf",
+                      "format": "pdf",
+                      "zipContent": "", 
+                      "quality": null,
+                      "chapters": []
+                  }
+              ]
+          },
+          {
+              "name": "Doctrines of Jesus",
+              "code": "",
+              "sort": 3,
+              "category": "",
+              "links": [
+                  {
+                      "url": "http://bibleineverylanguage.org/wp-content/uploads/2017/09/3.-Doctrine-of-Jesus_-Resurrection-Son-of-God-Deity-of-Christ-Savior.pdf",
+                      "format": "pdf",
+                      "zipContent": "", 
+                      "quality": null,
+                      "chapters": []
+                  }
+              ]
+          },
+          {
+              "name": "Doctrines of Man, Salvation, Church, and Holiness",
+              "code": "",
+              "sort": 4,
+              "category": "",
+              "links": [
+                  {
+                      "url": "http://bibleineverylanguage.org/wp-content/uploads/2018/02/4.-Doctrine-of-Man-Doctrine-of-Salvation-Doctrine-of-the-Church-Doctrine-of-Holiness-of-the-Believer.pdf",
+                      "format": "pdf",
+                      "zipContent": "", 
+                      "quality": null,
+                      "chapters": []
+                  }
+              ]
+          },
+          {
+              "name": "Doctrines of Scripture, Missions, and Family",
+              "code": "",
+              "sort": 5,
+              "category": "",
+              "links": [
+                  {
+                      "url": "http://bibleineverylanguage.org/wp-content/uploads/2018/02/5.-Doctrine-of-Scripture-Divinely-Inspired-Doctrine-of-Missions-Doctrine-of-Family.pdf",
+                      "format": "pdf",
+                      "zipContent": "", 
+                      "quality": null,
+                      "chapters": []
+                  }
+              ]
+          },
+          {
+              "name": "Narrative Passages",
+              "code": "",
+              "sort": 5,
+              "category": "",
+              "links": [
+                  {
+                      "url": "http://bibleineverylanguage.org/wp-content/uploads/2018/02/6.-Narrative-Passages.pdf",
+                      "format": "pdf",
+                      "zipContent": "", 
+                      "quality": null,
+                      "chapters": []
+                  }
+              ]
+          }
+        ]
+      }
+    ]
+  }, 
+  {
     "code": "es-419", 
     "contents": [
       {
