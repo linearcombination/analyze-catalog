@@ -69,12 +69,17 @@ function addAdditionalData(data) {
   const dataToAdd = manualData
     .concat(gogsData)
     .concat(handmadeData)
-    .map(l => ({
-      name: langData.filter(lang => lang.lc === l.code)[0].ln || 'Unknown',
-      code: l.code,
-      direction: langData.filter(lang => lang.lc === l.code)[0].ld || 'ltr',
-      contents: l.contents.slice(),
-    }));
+    .map(function (l) {
+        var language = langData.filter(lang => lang.lc == l.code)[0];
+        var langName = language ? language.ln : "Unknown";
+        var langDir = language ? language.ld : "ltr";
+        return {
+            name: langName,
+            code: l.code,
+            direction: langDir,
+            contents: l.contents.slice(),
+        }
+    })
 
   const combinedData = data.slice();
 

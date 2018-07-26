@@ -402,10 +402,25 @@
     "contents": [
       {
         "code": "", 
-        "name": "Review Guide", 
+        "name": "Reviewers' Guide",
         "subject": "",
         "links": [], 
         "subcontents": [
+          {
+              "name": "All PDFs in one ZIP file",
+              "code": "",
+              "sort": 1,
+              "category": "",
+              "links": [
+                  {
+                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/RG%20Final%20PDF.zip",
+                      "format": "zip",
+                      "zipContent": "pdf",
+                      "quality": null,
+                      "chapters": []
+                  }
+              ]
+          },
           {
               "name": "Doctrines of God and the Holy Spirit",
               "code": "",
