@@ -1,4 +1,5 @@
 const books = require('./data/books.json');
+const subjects = require('./data/subjects.json');
 const contentOrder = require('./data/content_order.json');
 
 /**
@@ -72,6 +73,14 @@ function getCategory(bookCode) {
 /**
  *
  */
+function normalizeSubject(subject) {
+    const subjectLowercase = subject.toLowerCase();
+    return subjects[subjectLowercase] || subject;
+}
+
+/**
+ *
+ */
 function getBookSortOrder(bookCode) {
   const code = bookCode.toLowerCase();
   return (books[code] && books[code]["num"]) || 0;
@@ -82,6 +91,7 @@ module.exports = {
   getZipContent,
   orderContent,
   getCategory,
+  normalizeSubject,
   getBookSortOrder,
   removeProperty,
   flattenOnce,

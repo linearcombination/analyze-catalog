@@ -2,6 +2,7 @@ const {
   getFileFormat,
   getZipContent,
   getCategory,
+  normalizeSubject,
   getBookSortOrder,
   removeProperty,
   flattenOnce,
@@ -22,7 +23,7 @@ function mapContents(languages) {
     contents: l.contents.map(content => ({
       name: content.title,
       code: content.identifier,
-      subject: content.subject,
+      subject: normalizeSubject(content.subject),
       description: content.description,
       checkingLevel: content.checking.checking_level,
       links: content.formats,
