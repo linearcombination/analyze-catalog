@@ -407,9 +407,9 @@
         "links": [], 
         "subcontents": [
           {
-              "name": "All PDFs in one ZIP file",
+              "name": "All PDFs in one ZIP file (Aug 2018)",
               "code": "",
-              "sort": 1,
+              "sort": -1,
               "category": "",
               "links": [
                   {
@@ -422,13 +422,43 @@
               ]
           },
           {
-              "name": "Doctrines of God and the Holy Spirit",
+              "name": "User's Manual (Aug 2018)",
+              "code": "",
+              "sort": 0,
+              "category": "",
+              "links": [
+                  {
+                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/0.%20User's%20Manual.pdf",
+                      "format": "pdf",
+                      "zipContent": "", 
+                      "quality": null,
+                      "chapters": []
+                  }
+              ]
+          },
+          {
+              "name": "Narrative Passages (Aug 2018)",
+              "code": "",
+              "sort": 1,
+              "category": "",
+              "links": [
+                  {
+                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/1.%20Narrative%20Passages.pdf",
+                      "format": "pdf",
+                      "zipContent": "", 
+                      "quality": null,
+                      "chapters": []
+                  }
+              ]
+          },
+          {
+              "name": "Doctrine of God (Aug 2018)",
               "code": "",
               "sort": 2,
               "category": "",
               "links": [
                   {
-                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/2.%20Doctrine%20of%20God%20%26%20%20Doctrine%20of%20Holy%20Spirit%20Reformat.pdf",
+                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/2.%20Doctrine%20of%20God%20(Loving_Relational%20Nature%2C%20the%20Father)%20%20%26%20%20Doctrine%20of%20Holy%20Spirit%20(Person%20and%20Work).pdf",
                       "format": "pdf",
                       "zipContent": "", 
                       "quality": null,
@@ -437,13 +467,13 @@
               ]
           },
           {
-              "name": "Doctrines of Jesus",
+              "name": "Doctrine of Jesus (Aug 2018)",
               "code": "",
               "sort": 3,
               "category": "",
               "links": [
                   {
-                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/3.%20Doctrine%20of%20Jesus%20Reformat.pdf",
+                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/3.%20Doctrine%20of%20Jesus_%20Resurrection%2C%20Son%20of%20God%2C%20Deity%20of%20Christ%2C%20Savior.pdf",
                       "format": "pdf",
                       "zipContent": "", 
                       "quality": null,
@@ -452,13 +482,13 @@
               ]
           },
           {
-              "name": "Doctrines of Man, Salvation, Church, and Holiness",
+              "name": "Doctrine of Man, Salvation, Church, Holiness (Aug 2018)",
               "code": "",
               "sort": 4,
               "category": "",
               "links": [
                   {
-                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/4.%20Doctrine%20of%20Man%20%26%20Salvation%20%26%20the%20Church%20%26%20Holiness%20of%20the%20Believer%20Reformat.pdf",
+                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/4.%20Doctrine%20of%20Man%20%26%20Doctrine%20of%20Salvation%20%26%20Doctrine%20of%20the%20Church%20%26%20Doctrine%20of%20Holiness%20of%20the%20Believer.pdf",
                       "format": "pdf",
                       "zipContent": "", 
                       "quality": null,
@@ -467,13 +497,13 @@
               ]
           },
           {
-              "name": "Doctrines of Scripture, Missions, and Family",
+              "name": "Doctrine of Scripture, Missions, Family (Aug 2018)",
               "code": "",
               "sort": 5,
               "category": "",
               "links": [
                   {
-                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/5.%20Doctrine%20of%20Scripture%20%26%20Missions%20%26%20Family%20Reformat.pdf",
+                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/5.%20Doctrine%20of%20Scripture%20(Divinely%20Inspired)%20%26%20Doctrine%20of%20Missions%20%26%20Doctrine%20of%20Family.pdf",
                       "format": "pdf",
                       "zipContent": "", 
                       "quality": null,
@@ -482,13 +512,43 @@
               ]
           },
           {
-              "name": "Narrative Passages",
+              "name": "Philippians (Aug 2018)",
               "code": "",
               "sort": 6,
               "category": "",
               "links": [
                   {
-                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/6.%20Narrative%20Passages%20reformat.pdf",
+                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/6.%20Philippians.pdf",
+                      "format": "pdf",
+                      "zipContent": "", 
+                      "quality": null,
+                      "chapters": []
+                  }
+              ]
+          },
+          {
+              "name": "Genesis (Aug 2018)",
+              "code": "",
+              "sort": 7,
+              "category": "",
+              "links": [
+                  {
+                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/7.%20Genesis.pdf",
+                      "format": "pdf",
+                      "zipContent": "", 
+                      "quality": null,
+                      "chapters": []
+                  }
+              ]
+          },
+          {
+              "name": "Exodus (Aug 2018)",
+              "code": "",
+              "sort": 8,
+              "category": "",
+              "links": [
+                  {
+                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/8.%20Exodus.pdf",
                       "format": "pdf",
                       "zipContent": "", 
                       "quality": null,
