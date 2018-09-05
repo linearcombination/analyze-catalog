@@ -401,7 +401,30 @@
     "code": "en", 
     "contents": [
       {
-        "code": "", 
+        "code": "",
+        "name": "Translation Notes",
+        "subject": "Translation Notes",
+        "links": [],
+        "subcontents": [
+          {
+              "name": "Jeremiah",
+              "code": "",
+              "sort": 24,
+              "category": "",
+              "links": [
+                  {
+                      "url": "https://cdn.bibleineverylanguage.org/wp-content/uploads/pdf/en_tn_24-JER_v11.pdf",
+                      "format": "pdf",
+                      "zipContent": "",
+                      "quality": null,
+                      "chapters": []
+                  }
+              ]
+          }
+        ]
+      },
+      {
+        "code": "",
         "name": "Reviewers' Guide",
         "subject": "Reviewers' Guide",
         "links": [], 
