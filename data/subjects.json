@@ -1,8 +1,14 @@
 {
     "bible stories":                             "Bible Stories",
-    "bible translation comprehension questions": "Translation Questions",
+    "open bible stories":                        "Bible Stories",
+    "aligned bible":                             "Bible",
     "greek new testament":                       "Bible",
     "translator notes":                          "Translation Notes",
+    "obs translation notes":                     "Translation Notes",
+    "reference":                                 "Translation Questions",
     "translator questions":                      "Translation Questions",
+    "bible translation comprehension questions": "Translation Questions",
+    "obs translation questions":                 "Translation Questions",
+    "translation questions'":                    "Translation Questions",
     "translator words":                          "Translation Words"
 }
