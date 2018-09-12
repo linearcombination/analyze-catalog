@@ -217,7 +217,7 @@ main();
 function main() {
   request('https://td.unfoldingword.org/exports/langnames.json', (err1, resp1, body1) => {
     langData = JSON.parse(body1);
-    request('https://api.door43.org/v3/catalog.json', (err2, resp2, body2) => {
+    request('https://api-dev.bibletranslationtools.org/v3/catalog.json', (err2, resp2, body2) => {
       catalogData = JSON.parse(body2);
       massagedData = massage(catalogData);
       app.listen(8081, () => {
