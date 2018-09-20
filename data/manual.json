@@ -404,6 +404,7 @@
         "code": "tn-wa",
         "name": "Translation Notes (WA)",
         "subject": "Translation Notes",
+        "checkingLevel": "3",
         "links": [],
         "subcontents": [
           {
@@ -1468,6 +1469,7 @@
         "code": "rg",
         "name": "Reviewers' Guide",
         "subject": "Reviewers' Guide",
+        "checkingLevel": "3",
         "links": [], 
         "subcontents": [
           {
