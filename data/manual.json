@@ -1473,7 +1473,7 @@
         "links": [], 
         "subcontents": [
           {
-              "name": "All PDFs in one ZIP file (Aug 2018)",
+              "name": "All PDFs in one ZIP file (Oct 2018)",
               "code": "",
               "sort": -1,
               "category": "",
@@ -1488,7 +1488,7 @@
               ]
           },
           {
-              "name": "User's Manual (Aug 2018)",
+              "name": "User's Manual (Oct 2018)",
               "code": "",
               "sort": 0,
               "category": "",
@@ -1503,7 +1503,7 @@
               ]
           },
           {
-              "name": "Narrative Passages (Aug 2018)",
+              "name": "Narrative Passages (Oct 2018)",
               "code": "",
               "sort": 1,
               "category": "",
@@ -1518,7 +1518,7 @@
               ]
           },
           {
-              "name": "Doctrine of God (Aug 2018)",
+              "name": "Doctrine of God (Oct 2018)",
               "code": "",
               "sort": 2,
               "category": "",
@@ -1533,7 +1533,7 @@
               ]
           },
           {
-              "name": "Doctrine of Jesus (Aug 2018)",
+              "name": "Doctrine of Jesus (Oct 2018)",
               "code": "",
               "sort": 3,
               "category": "",
@@ -1548,7 +1548,7 @@
               ]
           },
           {
-              "name": "Doctrine of Man, Salvation, Church, Holiness (Aug 2018)",
+              "name": "Doctrine of Man, Salvation, Church, Holiness (Oct 2018)",
               "code": "",
               "sort": 4,
               "category": "",
@@ -1563,7 +1563,7 @@
               ]
           },
           {
-              "name": "Doctrine of Scripture, Missions, Family (Aug 2018)",
+              "name": "Doctrine of Scripture, Missions, Family (Oct 2018)",
               "code": "",
               "sort": 5,
               "category": "",
@@ -1578,7 +1578,7 @@
               ]
           },
           {
-              "name": "Philippians (Aug 2018)",
+              "name": "Philippians (Oct 2018)",
               "code": "",
               "sort": 6,
               "category": "",
@@ -1593,7 +1593,7 @@
               ]
           },
           {
-              "name": "Genesis (Aug 2018)",
+              "name": "Genesis (Oct 2018)",
               "code": "",
               "sort": 7,
               "category": "",
@@ -1608,13 +1608,28 @@
               ]
           },
           {
-              "name": "Exodus (Aug 2018)",
+              "name": "Exodus (Oct 2018)",
               "code": "",
               "sort": 8,
               "category": "",
               "links": [
                   {
                       "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/8.%20Exodus.pdf",
+                      "format": "pdf",
+                      "zipContent": "", 
+                      "quality": null,
+                      "chapters": []
+                  }
+              ]
+          },
+          {
+              "name": "Application guides (Oct 2018)",
+              "code": "",
+              "sort": 9,
+              "category": "",
+              "links": [
+                  {
+                      "url": "https://github.com/wa-biel/biel-files/tree/master/review-guide/Application%20Guide",
                       "format": "pdf",
                       "zipContent": "", 
                       "quality": null,
