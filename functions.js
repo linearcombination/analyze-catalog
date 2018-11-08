@@ -21,7 +21,7 @@ function mapContents(languages) {
   return languages.map(l => ({
     ...l,
     contents: l.contents.map(content => ({
-      name: content.title,
+      name: overrideContentTitle(content.title),
       code: content.identifier,
       subject: normalizeSubject(content.subject),
       description: content.description,
@@ -30,6 +30,15 @@ function mapContents(languages) {
       subcontents: content.projects,
     })),
   }));
+}
+
+const contentTitleOverrides = require('./data/content_title_overrides.json');
+function overrideContentTitle(title) {
+    if (title in contentTitleOverrides) {
+        return contentTitleOverrides[title];
+    } else {
+        return title;
+    }
 }
 
 function mapContentLinks(languages) {
