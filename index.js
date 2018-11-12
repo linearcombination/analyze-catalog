@@ -9,6 +9,7 @@ const {
   mapLanguages,
   mapContents,
   mapContentLinks,
+  filterContents,
   mapSubcontents,
   filterSubcontents,
   mapSubcontentLinks,
@@ -53,6 +54,7 @@ function massage(data) {
   result = sortContents(contentOrderData, result);
   result = sortSubContents(result);
   result = unnestSubcontents(result);
+  result = filterContents(result);
 
   return result;
 }

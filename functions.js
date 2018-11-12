@@ -58,6 +58,17 @@ function mapContentLinks(languages) {
   }));
 }
 
+const contentFilters = require('./data/content_filters.json');
+function filterContents(languages) {
+    return languages.map(l => ({
+        ...l,
+        contents: l.contents.filter((c) => {
+           // If the langauge and content codes exist in the filter, filter out
+           return !(l.code in contentFilters && contentFilters[l.code].includes(c.code));
+        })
+    }));
+}
+
 function mapSubcontents(languages) {
   return languages.map(l => ({
     ...l,
@@ -275,6 +286,7 @@ module.exports = {
   mapLanguages,
   mapContents,
   mapContentLinks,
+  filterContents,
   mapSubcontents,
   filterSubcontents,
   mapSubcontentLinks,
