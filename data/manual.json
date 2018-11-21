@@ -398,6 +398,26 @@
     ]
   }, 
   {
+    "code": "mr", 
+    "contents": [
+      {
+        "subcontents": [
+        ], 
+        "code": "dot", 
+        "name": "Marathi Deaf Bible",
+        "links": [
+          {
+            "url": "https://www.youtube.com/channel/UC5nXQpGmAxS6MINM98N4YlA/featured", 
+            "zipContent": "", 
+            "quality": "", 
+            "format": "YouTube"
+          }
+        ], 
+        "subject": "Bible"
+      }
+    ]
+  }, 
+  {
     "code": "en", 
     "contents": [
       {
