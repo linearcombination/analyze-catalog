@@ -3398,28 +3398,13 @@
         "links": [], 
         "subcontents": [
           {
-              "name": "All PDFs in one ZIP file (Oct 2018)",
-              "code": "",
-              "sort": -1,
-              "category": "",
-              "links": [
-                  {
-                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/RG%20Final%20PDF.zip",
-                      "format": "zip",
-                      "zipContent": "pdf",
-                      "quality": null,
-                      "chapters": []
-                  }
-              ]
-          },
-          {
               "name": "User's Manual (Oct 2018)",
               "code": "",
               "sort": 0,
               "category": "",
               "links": [
                   {
-                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/0.%20User's%20Manual.pdf",
+                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers'%20Guide%20PDF%20documents/Users'%20Manual.pdf",
                       "format": "pdf",
                       "zipContent": "", 
                       "quality": null,
@@ -3434,7 +3419,7 @@
               "category": "",
               "links": [
                   {
-                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/1.%20Narrative%20Passages.pdf",
+                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers'%20Guide%20PDF%20documents/Narratives%20Guides/Narratives.pdf",
                       "format": "pdf",
                       "zipContent": "", 
                       "quality": null,
@@ -3449,7 +3434,7 @@
               "category": "",
               "links": [
                   {
-                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/2.%20Doctrine%20of%20God%20(Loving_Relational%20Nature%2C%20the%20Father)%20%20%26%20%20Doctrine%20of%20Holy%20Spirit%20(Person%20and%20Work).pdf",
+                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers'%20Guide%20PDF%20documents/Doctrine%20Guides/Doctrine%20of%20God%20the%20Father.pdf",
                       "format": "pdf",
                       "zipContent": "", 
                       "quality": null,
@@ -3464,7 +3449,7 @@
               "category": "",
               "links": [
                   {
-                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/3.%20Doctrine%20of%20Jesus_%20Resurrection%2C%20Son%20of%20God%2C%20Deity%20of%20Christ%2C%20Savior.pdf",
+                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers'%20Guide%20PDF%20documents/Doctrine%20Guides/Doctrine%20of%20Jesus.pdf",
                       "format": "pdf",
                       "zipContent": "", 
                       "quality": null,
@@ -3479,7 +3464,7 @@
               "category": "",
               "links": [
                   {
-                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/4.%20Doctrine%20of%20Man%20%26%20Doctrine%20of%20Salvation%20%26%20Doctrine%20of%20the%20Church%20%26%20Doctrine%20of%20Holiness%20of%20the%20Believer.pdf",
+                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers'%20Guide%20PDF%20documents/Doctrine%20Guides/Doctrine%20of%20Man%3B%20Doctrine%20of%20Salvation%3B%20Doctrine%20of%20the%20Church%3B%20Doctrine%20of%20Holiness%20of%20the%20Believer.pdf",
                       "format": "pdf",
                       "zipContent": "", 
                       "quality": null,
@@ -3494,7 +3479,7 @@
               "category": "",
               "links": [
                   {
-                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/5.%20Doctrine%20of%20Scripture%20(Divinely%20Inspired)%20%26%20Doctrine%20of%20Missions%20%26%20Doctrine%20of%20Family.pdf",
+                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers'%20Guide%20PDF%20documents/Doctrine%20Guides/Doctrine%20of%20Scripture%3B%20Doctrine%20of%20Missions%3B%20Doctrine%20of%20Family.pdf",
                       "format": "pdf",
                       "zipContent": "", 
                       "quality": null,
@@ -3509,7 +3494,7 @@
               "category": "",
               "links": [
                   {
-                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/6.%20Philippians.pdf",
+                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers'%20Guide%20PDF%20documents/Book%20Guides/Philippians.pdf",
                       "format": "pdf",
                       "zipContent": "", 
                       "quality": null,
@@ -3524,7 +3509,7 @@
               "category": "",
               "links": [
                   {
-                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/7.%20Genesis.pdf",
+                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers'%20Guide%20PDF%20documents/Book%20Guides/Genesis.pdf",
                       "format": "pdf",
                       "zipContent": "", 
                       "quality": null,
@@ -3539,7 +3524,7 @@
               "category": "",
               "links": [
                   {
-                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/8.%20Exodus.pdf",
+                      "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers'%20Guide%20PDF%20documents/Book%20Guides/Exodus.pdf",
                       "format": "pdf",
                       "zipContent": "", 
                       "quality": null,
@@ -3554,7 +3539,7 @@
               "category": "",
               "links": [
                   {
-                      "url": "https://github.com/wa-biel/biel-files/tree/master/review-guide/Application%20Guide",
+                      "url": "https://github.com/wa-biel/biel-files/tree/master/review-guide/Reviewers'%20Guide%20PDF%20documents/Application%20Guide",
                       "format": "pdf",
                       "zipContent": "", 
                       "quality": null,
