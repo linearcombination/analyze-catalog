@@ -401,6 +401,8 @@
     "code": "mr",
     "contents": [
       {
+        "subject": "Bible",
+        "checkingLevel": "1",
         "subcontents": [
         ],
         "code": "dot",
@@ -412,8 +414,7 @@
             "quality": "",
             "format": "YouTube"
           }
-        ],
-        "subject": "Bible"
+        ]
       }
     ]
   },
