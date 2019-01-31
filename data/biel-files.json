@@ -1,0 +1,427 @@
+[
+    {
+        "code": "en",
+        "contents": [
+            {
+                "checkingLevel": "3",
+                "code": "rg",
+                "links": [],
+                "name": "Reviewer's Guide",
+                "subcontents": [
+                    {
+                        "category": "topics",
+                        "code": "",
+                        "links": [
+                            {
+                                "chapters": [],
+                                "format": "pdf",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Introduction%20to%20the%20Reviewers%27%20Guides.pdf",
+                                "zipContent": ""
+                            }
+                        ],
+                        "name": "Introduction to the Reviewers' Guides",
+                        "sort": 1
+                    },
+                    {
+                        "category": "topics",
+                        "code": "",
+                        "links": [
+                            {
+                                "chapters": [],
+                                "format": "docx",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20Word%20documents/Application%20Guides/Application%20Guide%20for%20Doctrines.docx",
+                                "zipContent": ""
+                            },
+                            {
+                                "chapters": [],
+                                "format": "pdf",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20PDF%20documents/Application%20Guide/Application%20Guide%20for%20Doctrines.pdf",
+                                "zipContent": ""
+                            }
+                        ],
+                        "name": "Application Guide : Application Guide for Doctrines",
+                        "sort": 2
+                    },
+                    {
+                        "category": "topics",
+                        "code": "",
+                        "links": [
+                            {
+                                "chapters": [],
+                                "format": "docx",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20Word%20documents/Application%20Guides/Application%20Guide%20for%20Exodus.docx",
+                                "zipContent": ""
+                            },
+                            {
+                                "chapters": [],
+                                "format": "pdf",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20PDF%20documents/Application%20Guide/Application%20Guide%20for%20Exodus.pdf",
+                                "zipContent": ""
+                            }
+                        ],
+                        "name": "Application Guide : Application Guide for Exodus",
+                        "sort": 3
+                    },
+                    {
+                        "category": "topics",
+                        "code": "",
+                        "links": [
+                            {
+                                "chapters": [],
+                                "format": "docx",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20Word%20documents/Application%20Guides/Application%20Guide%20for%20Genesis.docx",
+                                "zipContent": ""
+                            },
+                            {
+                                "chapters": [],
+                                "format": "pdf",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20PDF%20documents/Application%20Guide/Application%20Guide%20for%20Genesis.pdf",
+                                "zipContent": ""
+                            }
+                        ],
+                        "name": "Application Guide : Application Guide for Genesis",
+                        "sort": 4
+                    },
+                    {
+                        "category": "topics",
+                        "code": "",
+                        "links": [
+                            {
+                                "chapters": [],
+                                "format": "docx",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20Word%20documents/Application%20Guides/Application%20Guide%20for%20Narratives.docx",
+                                "zipContent": ""
+                            },
+                            {
+                                "chapters": [],
+                                "format": "pdf",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20PDF%20documents/Application%20Guide/Application%20Guide%20for%20Narratives.pdf",
+                                "zipContent": ""
+                            }
+                        ],
+                        "name": "Application Guide : Application Guide for Narratives",
+                        "sort": 5
+                    },
+                    {
+                        "category": "topics",
+                        "code": "",
+                        "links": [
+                            {
+                                "chapters": [],
+                                "format": "docx",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20Word%20documents/Application%20Guides/Application%20Guide%20for%20Philippians.docx",
+                                "zipContent": ""
+                            },
+                            {
+                                "chapters": [],
+                                "format": "pdf",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20PDF%20documents/Application%20Guide/Application%20Guide%20for%20Philippians.pdf",
+                                "zipContent": ""
+                            }
+                        ],
+                        "name": "Application Guide : Application Guide for Philippians",
+                        "sort": 6
+                    },
+                    {
+                        "category": "topics",
+                        "code": "",
+                        "links": [
+                            {
+                                "chapters": [],
+                                "format": "docx",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20Word%20documents/Book%20Guides/Exodus.docx",
+                                "zipContent": ""
+                            },
+                            {
+                                "chapters": [],
+                                "format": "pdf",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20PDF%20documents/Book%20Guides/Exodus.pdf",
+                                "zipContent": ""
+                            }
+                        ],
+                        "name": "Book Guides : Exodus",
+                        "sort": 7
+                    },
+                    {
+                        "category": "topics",
+                        "code": "",
+                        "links": [
+                            {
+                                "chapters": [],
+                                "format": "docx",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20Word%20documents/Book%20Guides/Genesis.docx",
+                                "zipContent": ""
+                            },
+                            {
+                                "chapters": [],
+                                "format": "pdf",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20PDF%20documents/Book%20Guides/Genesis.pdf",
+                                "zipContent": ""
+                            }
+                        ],
+                        "name": "Book Guides : Genesis",
+                        "sort": 8
+                    },
+                    {
+                        "category": "topics",
+                        "code": "",
+                        "links": [
+                            {
+                                "chapters": [],
+                                "format": "docx",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20Word%20documents/Book%20Guides/Philippians.docx",
+                                "zipContent": ""
+                            },
+                            {
+                                "chapters": [],
+                                "format": "pdf",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20PDF%20documents/Book%20Guides/Philippians.pdf",
+                                "zipContent": ""
+                            }
+                        ],
+                        "name": "Book Guides : Philippians",
+                        "sort": 9
+                    },
+                    {
+                        "category": "topics",
+                        "code": "",
+                        "links": [
+                            {
+                                "chapters": [],
+                                "format": "docx",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20Word%20documents/Doctrine%20Guides/Doctrine%20of%20God%20the%20Father.docx",
+                                "zipContent": ""
+                            },
+                            {
+                                "chapters": [],
+                                "format": "pdf",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20PDF%20documents/Doctrine%20Guides/Doctrine%20of%20God%20the%20Father.pdf",
+                                "zipContent": ""
+                            }
+                        ],
+                        "name": "Doctrine Guides : Doctrine of God the Father",
+                        "sort": 10
+                    },
+                    {
+                        "category": "topics",
+                        "code": "",
+                        "links": [
+                            {
+                                "chapters": [],
+                                "format": "docx",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20Word%20documents/Doctrine%20Guides/Doctrine%20of%20God%3B%20Doctrine%20of%20Holy%20Spirit.docx",
+                                "zipContent": ""
+                            },
+                            {
+                                "chapters": [],
+                                "format": "pdf",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20PDF%20documents/Doctrine%20Guides/Doctrine%20of%20God%3B%20Doctrine%20of%20Holy%20Spirit.pdf",
+                                "zipContent": ""
+                            }
+                        ],
+                        "name": "Doctrine Guides : Doctrine of God; Doctrine of Holy Spirit",
+                        "sort": 11
+                    },
+                    {
+                        "category": "topics",
+                        "code": "",
+                        "links": [
+                            {
+                                "chapters": [],
+                                "format": "docx",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20Word%20documents/Doctrine%20Guides/Doctrine%20of%20Jesus.docx",
+                                "zipContent": ""
+                            },
+                            {
+                                "chapters": [],
+                                "format": "pdf",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20PDF%20documents/Doctrine%20Guides/Doctrine%20of%20Jesus.pdf",
+                                "zipContent": ""
+                            }
+                        ],
+                        "name": "Doctrine Guides : Doctrine of Jesus",
+                        "sort": 12
+                    },
+                    {
+                        "category": "topics",
+                        "code": "",
+                        "links": [
+                            {
+                                "chapters": [],
+                                "format": "docx",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20Word%20documents/Doctrine%20Guides/Doctrine%20of%20Man%3B%20Doctrine%20of%20Salvation%3B%20Doctrine%20of%20the%20Church%3B%20Doctrine%20of%20Holiness%20of%20the%20Believer.docx",
+                                "zipContent": ""
+                            },
+                            {
+                                "chapters": [],
+                                "format": "pdf",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20PDF%20documents/Doctrine%20Guides/Doctrine%20of%20Man%3B%20Doctrine%20of%20Salvation%3B%20Doctrine%20of%20the%20Church%3B%20Doctrine%20of%20Holiness%20of%20the%20Believer.pdf",
+                                "zipContent": ""
+                            }
+                        ],
+                        "name": "Doctrine Guides : Doctrine of Man; Doctrine of Salvation; Doctrine of the Church; Doctrine of Holiness of the Believer",
+                        "sort": 13
+                    },
+                    {
+                        "category": "topics",
+                        "code": "",
+                        "links": [
+                            {
+                                "chapters": [],
+                                "format": "docx",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20Word%20documents/Doctrine%20Guides/Doctrine%20of%20Scripture%3B%20Doctrine%20of%20Missions%3B%20Doctrine%20of%20Family.docx",
+                                "zipContent": ""
+                            },
+                            {
+                                "chapters": [],
+                                "format": "pdf",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20PDF%20documents/Doctrine%20Guides/Doctrine%20of%20Scripture%3B%20Doctrine%20of%20Missions%3B%20Doctrine%20of%20Family.pdf",
+                                "zipContent": ""
+                            }
+                        ],
+                        "name": "Doctrine Guides : Doctrine of Scripture; Doctrine of Missions; Doctrine of Family",
+                        "sort": 14
+                    },
+                    {
+                        "category": "topics",
+                        "code": "",
+                        "links": [
+                            {
+                                "chapters": [],
+                                "format": "docx",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20Word%20documents/Doctrine%20Guides/Doctrine%20of%20the%20Son%20of%20God.docx",
+                                "zipContent": ""
+                            },
+                            {
+                                "chapters": [],
+                                "format": "pdf",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20PDF%20documents/Doctrine%20Guides/Doctrine%20of%20the%20Son%20of%20God.pdf",
+                                "zipContent": ""
+                            }
+                        ],
+                        "name": "Doctrine Guides : Doctrine of the Son of God",
+                        "sort": 15
+                    },
+                    {
+                        "category": "topics",
+                        "code": "",
+                        "links": [
+                            {
+                                "chapters": [],
+                                "format": "docx",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20Word%20documents/Father%20and%20Son%20Terms%20Guides/God%20the%20Father%20Terms.docx",
+                                "zipContent": ""
+                            },
+                            {
+                                "chapters": [],
+                                "format": "pdf",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20PDF%20documents/Father%20and%20Son%20Terms%20Guides/God%20the%20Father%20Terms.pdf",
+                                "zipContent": ""
+                            }
+                        ],
+                        "name": "Father and Son Terms Guides : God the Father Terms",
+                        "sort": 16
+                    },
+                    {
+                        "category": "topics",
+                        "code": "",
+                        "links": [
+                            {
+                                "chapters": [],
+                                "format": "docx",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20Word%20documents/Father%20and%20Son%20Terms%20Guides/Son%20of%20God%20Terms.docx",
+                                "zipContent": ""
+                            },
+                            {
+                                "chapters": [],
+                                "format": "pdf",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20PDF%20documents/Father%20and%20Son%20Terms%20Guides/Son%20of%20God%20Terms.pdf",
+                                "zipContent": ""
+                            }
+                        ],
+                        "name": "Father and Son Terms Guides : Son of God Terms",
+                        "sort": 17
+                    },
+                    {
+                        "category": "topics",
+                        "code": "",
+                        "links": [
+                            {
+                                "chapters": [],
+                                "format": "docx",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20Word%20documents/Narrative%20Guides/Narratives.docx",
+                                "zipContent": ""
+                            },
+                            {
+                                "chapters": [],
+                                "format": "pdf",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20PDF%20documents/Narratives%20Guides/Narratives.pdf",
+                                "zipContent": ""
+                            }
+                        ],
+                        "name": "Narratives Guides : Narratives",
+                        "sort": 18
+                    },
+                    {
+                        "category": "topics",
+                        "code": "",
+                        "links": [
+                            {
+                                "chapters": [],
+                                "format": "docx",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20Word%20documents/Users%27%20Manual.docx",
+                                "zipContent": ""
+                            },
+                            {
+                                "chapters": [],
+                                "format": "pdf",
+                                "quality": null,
+                                "url": "https://github.com/wa-biel/biel-files/raw/master/review-guide/Reviewers%27%20Guide%20PDF%20documents/Users%27%20Manual.pdf",
+                                "zipContent": ""
+                            }
+                        ],
+                        "name": "Users' Manual",
+                        "sort": 19
+                    }
+                ],
+                "subject": "Reference"
+            }
+        ]
+    }
+]

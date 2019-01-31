@@ -25,6 +25,7 @@ const {
 } = require('./helpers');
 
 const manualData = require('./data/manual.json');
+const bielFilesData = require('./data/biel-files.json');
 const gogsData = require('./data/gogs.json');
 const handmadeData = require('./data/handmade.json');
 const contentOrderData = require('./data/content_order.json');
@@ -69,6 +70,7 @@ function massage(data) {
 // TODO: Find a better way to merge additional data
 function addAdditionalData(data) {
   const dataToAdd = manualData
+    .concat(bielFilesData)
     .concat(gogsData)
     .concat(handmadeData)
     .map(function (l) {
