@@ -21,6 +21,10 @@ function getZipContent(formatString) {
 
   // formatString will contain, for example: ... content=text/usfm
   const content = /content=[\w]+\/([\w]+)/.exec(formatString);
+  if (!content) {
+      return '';
+  }
+
   return content[1];
 }
 

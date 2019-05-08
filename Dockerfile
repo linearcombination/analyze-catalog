@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM debian:stretch-slim
 
 # Install packages
 RUN apt update && apt install -y \
@@ -20,10 +20,12 @@ RUN apt remove -y \
 
 # Install app
 WORKDIR /root/app
-COPY ["data",   "./data"]
 COPY ["*.js",   "./"]
 COPY ["*.json", "./"]
 RUN npm install
+
+# Copy data
+COPY ["data",   "./data"]
 
 # Setup working volume
 VOLUME "/working"

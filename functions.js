@@ -241,13 +241,17 @@ function turnChaptersToSubcontents(obsProjects) {
 
     // Merge chapters that have the same code/identifier
     const dedupedChapters = chapterArrays.reduce((array, c) => {
+      let format = '';
+      if (c.format) {
+        format = c.format.split('/').reverse()[0];
+      }
       // Map chapter into BIEL-recognized form
       const currentChapter = {
         name: c.identifier,
         category: 'obs',
         links: [{
           url: c.url,
-          format: c.format.split('/').reverse()[0],
+          format: format,
           quality: c.quality,
         }],
       };

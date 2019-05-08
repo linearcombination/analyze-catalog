@@ -10,15 +10,16 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "eslint": "^3.19.0",
-    "eslint-config-airbnb-base": "^11.2.0",
-    "eslint-plugin-import": "^2.7.0",
-    "jest": "^21.2.1"
+    "eslint": "^5",
+    "eslint-config-airbnb-base": "^13",
+    "eslint-plugin-import": "^2",
+    "jest": "^24"
   },
   "dependencies": {
-    "express": "^4.15.3",
-    "lodash": "^4.17.4",
-    "nodemon": "^1.12.1",
-    "request": "^2.81.0"
+    "express": "^4.16.4",
+    "lodash": "^4.17.11",
+    "nodemon": "^1.19.0",
+    "npm": "^6.9.0",
+    "request": "^2.88.0"
   }
 }
