@@ -62,11 +62,8 @@ function massage(data) {
 }
 
 function convertTRSource(data) {
-    console.log("convertTRSource()");
-    console.log(data);
     out_data = [];
     data.forEach(function(item) {
-        console.log("data.forEach()");
         out_lang = {};
         out_data.push(out_lang);
         out_lang["code"] = item["lang"];
@@ -89,10 +86,8 @@ function convertTRSource(data) {
         link = {};
         links.push(link);
         link["url"] = item["download_url"];
-        link["format"] = "tr"
-        console.log(out_lang);
+        link["format"] = "tr source audio"
     });
-    console.log(out_data);
     return out_data;
 }
 
