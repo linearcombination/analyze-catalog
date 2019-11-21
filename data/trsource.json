@@ -1,0 +1,6 @@
+[
+    { "lang": "en", "resource": "ulb", "book": "mat", "download_url": "http://source.walink.org/bttr-source/en/mat/verse/en_ulb_mat.trfile"},
+    { "lang": "en", "resource": "ulb", "book": "mrk", "download_url": "http://source.walink.org/bttr-source/en/mat/verse/en_ulb_mrk.trfile"},
+    { "lang": "en", "resource": "ulb", "book": "luk", "download_url": "http://source.walink.org/bttr-source/en/mat/verse/en_ulb_luk.trfile"},
+    { "lang": "en", "resource": "ulb", "book": "jhn", "download_url": "http://source.walink.org/bttr-source/en/mat/verse/en_ulb_jhn.trfile"}
+]

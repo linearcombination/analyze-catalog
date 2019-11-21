@@ -29,6 +29,7 @@ const bielFilesData = require('./data/biel-files.json');
 const gogsData = require('./data/gogs.json');
 const handmadeData = require('./data/handmade.json');
 const contentOrderData = require('./data/content_order.json');
+const trSourceData = require('./data/trsource.json');
 
 const app = express();
 
@@ -60,6 +61,41 @@ function massage(data) {
   return result;
 }
 
+function convertTRSource(data) {
+    console.log("convertTRSource()");
+    console.log(data);
+    out_data = [];
+    data.forEach(function(item) {
+        console.log("data.forEach()");
+        out_lang = {};
+        out_data.push(out_lang);
+        out_lang["code"] = item["lang"];
+        contents = [];
+        out_lang["contents"] = contents;
+        resource = {};
+        contents.push(resource);
+        resourcecode = item["resource"];
+        if (resourcecode === "ulb") {
+            resourcecode = "ulb-wa";
+        }
+        resource["code"] = resourcecode;
+        subcontents = []
+        resource["subcontents"] = subcontents;
+        book = {};
+        subcontents.push(book);
+        book["code"] = item["book"];
+        links = [];
+        book["links"] = links;
+        link = {};
+        links.push(link);
+        link["url"] = item["download_url"];
+        link["format"] = "tr"
+        console.log(out_lang);
+    });
+    console.log(out_data);
+    return out_data;
+}
+
 /**
  * Add only what's needed. Possible addition:
  *   1. Everything for a language
@@ -72,6 +108,7 @@ function addAdditionalData(data) {
   const dataToAdd = manualData
     .concat(bielFilesData)
     .concat(gogsData)
+    .concat(convertTRSource(trSourceData))
     .concat(handmadeData)
     .map(function (l) {
         var language = langData.filter(lang => lang.lc == l.code)[0];
