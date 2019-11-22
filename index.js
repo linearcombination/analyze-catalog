@@ -29,9 +29,10 @@ const bielFilesData = require('./data/biel-files.json');
 const gogsData = require('./data/gogs.json');
 const handmadeData = require('./data/handmade.json');
 const contentOrderData = require('./data/content_order.json');
-const trSourceData = require('./data/trsource.json');
 
 const app = express();
+
+let trSourceData = require('./data/trsource.json');
 
 let langData;
 let catalogData;
@@ -255,9 +256,12 @@ function main() {
     langData = JSON.parse(body1);
     request('https://api.door43.org/v3/catalog.json', (err2, resp2, body2) => {
       catalogData = JSON.parse(body2);
-      massagedData = massage(catalogData);
-      app.listen(8081, () => {
-        console.log('Server running at http://localhost:8081/');
+      request('http://source.walink.org/bttr-source/index.json', (err3, resp3, body3) => {
+        trSourceData = JSON.parse(body3);
+        massagedData = massage(catalogData);
+        app.listen(8081, () => {
+          console.log('Server running at http://localhost:8081/');
+        });
       });
     });
   });
