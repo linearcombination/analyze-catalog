@@ -1497,6 +1497,12 @@
             "zipContent": "",
             "quality": "",
             "format": "Read on Web"
+          },
+          {
+            "url": "/download-scripture?repo_url=https:%2F%2Fcontent.bibletranslationtools.org%2FWycliffeAssociates%2Fen_ulb",
+            "zipContent": "",
+            "quality": "",
+            "format": "Download"
           }
         ],
         "subcontents": [
@@ -2437,6 +2443,12 @@
             "zipContent": "",
             "quality": "",
             "format": "Read on Web"
+          },
+          {
+            "url": "/download-scripture?repo_url=https:%2F%2Fcontent.bibletranslationtools.org%2FWycliffeAssociates%2Fen_udb",
+            "zipContent": "",
+            "quality": "",
+            "format": "Download"
           }
         ],
         "subcontents": [
