@@ -69,6 +69,26 @@ function filterContents(languages) {
     }));
 }
 
+function filterContentLinks(languages) {
+  return languages.map(l => ({
+    ...l,
+    contents: l.contents.map(c => ({
+      ...c,
+      links: c.links && c.links.length > 0 ? c.links.filter((link) => {
+          // Special case: Per MS, only list download links for reg, ulb, udb
+          if (link.format === 'Download') {
+              const regDownload = c.code.startsWith("reg");
+              const ulbDownload = c.code.startsWith("ulb");
+              const udbDownload = c.code.startsWith("udb");
+              return regDownload || ulbDownload || udbDownload
+          }
+          return true;
+        })
+        : [],
+    })),
+  }));
+}
+
 function mapSubcontents(languages) {
   return languages.map(l => ({
     ...l,
@@ -125,6 +145,31 @@ function mapSubcontentLinks(languages) {
               // OBS subcontent has, oddly, chapters inside each links.
               chapters: link.chapters || [],
             }))
+            : [],
+        }))
+        : [],
+    })),
+  }));
+}
+
+function filterSubcontentLinks(languages) {
+  return languages.map(l => ({
+    ...l,
+    contents: l.contents.map(c => ({
+      ...c,
+      subcontents: c.subcontents && c.subcontents.length > 0
+        ? c.subcontents.map(s => ({
+          ...s,
+          links: s.links && s.links.length > 0 ? s.links.filter((link) => {
+              // Special case: Per MS, only list download links for reg, ulb, udb
+              if (link.format === 'Download') {
+                  const regDownload = c.code.startsWith("reg");
+                  const ulbDownload = c.code.startsWith("ulb");
+                  const udbDownload = c.code.startsWith("udb");
+                  return regDownload || ulbDownload || udbDownload
+              }
+              return true;
+            })
             : [],
         }))
         : [],
@@ -290,10 +335,12 @@ module.exports = {
   mapLanguages,
   mapContents,
   mapContentLinks,
+  filterContentLinks,
   filterContents,
   mapSubcontents,
   filterSubcontents,
   mapSubcontentLinks,
+  filterSubcontentLinks,
   addEnglishNames,
   sortLanguageByNameOrEnglishName,
   sortContents,

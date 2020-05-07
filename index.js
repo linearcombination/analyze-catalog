@@ -9,10 +9,12 @@ const {
   mapLanguages,
   mapContents,
   mapContentLinks,
+  filterContentLinks,
   filterContents,
   mapSubcontents,
   filterSubcontents,
   mapSubcontentLinks,
+  filterSubcontentLinks,
   addEnglishNames,
   sortLanguageByNameOrEnglishName,
   sortContents,
@@ -50,6 +52,8 @@ function massage(data) {
   result = filterSubcontents(result);
   result = mapSubcontentLinks(result);
   result = addAdditionalData(result);
+  result = filterContentLinks(result);
+  result = filterSubcontentLinks(result);
   result = addEnglishNames(langData, result);
   result = sortLanguageByNameOrEnglishName(result);
   result = sortContents(contentOrderData, result);
